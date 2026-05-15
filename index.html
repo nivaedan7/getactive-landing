@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>get active. — just show up.</title>
+<meta name="description" content="A minimal daily tracker built around one idea: just show up. Log your activity, track your body, own your habits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:    #0E0C0A;
+  --ink2:   #2A2622;
+  --cream:  #F5F2EC;
+  --cream2: #EDE9E0;
+  --cream3: #E2DDD4;
+  --accent: #2D5A3D;
+  --accent2:#C8A96E;
+  --mono:   'DM Mono', monospace;
+  --serif:  'Playfair Display', Georgia, serif;
+  --sans:   'DM Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--ink);
+  color: var(--cream);
+  overflow-x: hidden;
+}
+
+/* ── HERO ─────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(45,90,61,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(200,169,110,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Grain overlay */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.hero-nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 48px;
+}
+
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245,242,236,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--cream); }
+
+.hero-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 48px;
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.2s;
+}
+
+.hero-headline {
+  font-family: var(--serif);
+  font-size: clamp(52px, 9vw, 110px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.9s ease forwards 0.4s;
+}
+
+.hero-headline em {
+  font-style: italic;
+  color: var(--accent2);
+}
+
+.hero-sub {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: rgba(245,242,236,0.55);
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 56px;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  animation: fadeUp 0.9s ease forwards 0.6s;
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  opacity: 0;
+  animation: fadeUp 0.9s ease forwards 0.8s;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 14px 32px;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--accent2);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245,242,236,0.4);
+  text-decoration: none;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-ghost:hover { color: var(--cream); }
+.btn-ghost::after { content: '→'; }
+
+.hero-counter {
+  position: absolute;
+  right: 48px;
+  bottom: 48px;
+  z-index: 10;
+  text-align: right;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1.2s;
+}
+
+.counter-num {
+  font-family: var(--serif);
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(245,242,236,0.06);
+  letter-spacing: -0.04em;
+}
+
+.counter-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245,242,236,0.25);
+  margin-top: 4px;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 48px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245,242,236,0.3);
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1.4s;
+}
+
+.scroll-line {
+  width: 40px;
+  height: 1px;
+  background: rgba(245,242,236,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: rgba(245,242,236,0.6);
+  animation: scrollLine 2s ease infinite 2s;
+}
+
+@keyframes scrollLine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ── PHILOSOPHY ───────────────────────────── */
+.philosophy {
+  background: var(--cream);
+  color: var(--ink);
+  padding: 120px 48px;
+  position: relative;
+}
+
+.philosophy::before {
+  content: '"';
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  font-family: var(--serif);
+  font-size: 200px;
+  color: rgba(14,12,10,0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.phil-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-tag::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.phil-statement {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 48px;
+}
+
+.phil-statement em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.phil-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.phil-col p {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.75;
+  color: #4A4640;
+  margin-bottom: 20px;
+}
+
+.phil-col p:last-child { margin-bottom: 0; }
+
+/* ── STATS BAR ────────────────────────────── */
+.stats-bar {
+  background: var(--ink2);
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.stat-num span {
+  color: var(--accent2);
+}
+
+.stat-desc {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,242,236,0.4);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(245,242,236,0.08);
+}
+
+/* ── FEATURES ─────────────────────────────── */
+.features {
+  background: var(--cream2);
+  padding: 120px 48px;
+}
+
+.features-header {
+  max-width: 560px;
+  margin-bottom: 80px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.feature-card {
+  background: var(--cream);
+  padding: 40px 36px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.feature-card:hover { background: var(--ink); }
+.feature-card:hover .feature-title { color: var(--cream); }
+.feature-card:hover .feature-body { color: rgba(245,242,236,0.5); }
+.feature-card:hover .feature-num { color: rgba(245,242,236,0.06); }
+.feature-card:hover .feature-icon { border-color: rgba(245,242,236,0.15); color: var(--accent2); }
+
+.feature-num {
+  font-family: var(--serif);
+  font-size: 80px;
+  font-weight: 700;
+  color: rgba(14,12,10,0.04);
+  line-height: 1;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  transition: color 0.2s;
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(14,12,10,0.12);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  font-size: 18px;
+  transition: all 0.2s;
+}
+
+.feature-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 14px;
+  transition: color 0.2s;
+  line-height: 1.2;
+}
+
+.feature-body {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.7;
+  color: #5A5550;
+  transition: color 0.2s;
+}
+
+/* ── HOW IT WORKS ─────────────────────────── */
+.how {
+  background: var(--cream);
+  padding: 120px 48px;
+}
+
+.how-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.how-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 64px;
+}
+
+.how-step {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 40px 0;
+  border-top: 1px solid rgba(14,12,10,0.08);
+}
+
+.how-step:last-child { border-bottom: 1px solid rgba(14,12,10,0.08); }
+
+.step-num {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 700;
+  color: rgba(14,12,10,0.08);
+  line-height: 1;
+}
+
+.step-title {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.step-body {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.7;
+  color: #5A5550;
+}
+
+/* ── MANIFESTO ────────────────────────────── */
+.manifesto {
+  background: var(--ink);
+  padding: 140px 48px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.manifesto::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(45,90,61,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.manifesto-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.manifesto-lines {
+  list-style: none;
+  margin-bottom: 64px;
+}
+
+.manifesto-lines li {
+  font-family: var(--serif);
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(245,242,236,0.25);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(245,242,236,0.06);
+  transition: color 0.3s;
+  cursor: default;
+}
+
+.manifesto-lines li:hover { color: var(--cream); }
+.manifesto-lines li.accent { color: var(--accent2); }
+.manifesto-lines li em { font-style: italic; }
+
+/* ── WAITLIST ─────────────────────────────── */
+.waitlist {
+  background: var(--cream2);
+  padding: 120px 48px;
+}
+
+.waitlist-inner {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.waitlist-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.waitlist-sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: #7A7570;
+  margin-bottom: 48px;
+  line-height: 1.7;
+}
+
+.waitlist-form {
+  display: flex;
+  gap: 0;
+  max-width: 440px;
+  margin: 0 auto 20px;
+}
+
+.waitlist-input {
+  flex: 1;
+  padding: 14px 20px;
+  border: 1px solid rgba(14,12,10,0.15);
+  border-right: none;
+  background: var(--cream);
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+  outline: none;
+  border-radius: 2px 0 0 2px;
+  transition: border-color 0.2s;
+}
+
+.waitlist-input:focus { border-color: var(--accent); }
+.waitlist-input::placeholder { color: #AAA59F; }
+
+.waitlist-btn {
+  padding: 14px 24px;
+  background: var(--ink);
+  color: var(--cream);
+  border: 1px solid var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 0 2px 2px 0;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.waitlist-btn:hover { background: var(--accent); border-color: var(--accent); }
+
+.waitlist-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #AAA59F;
+}
+
+.waitlist-success {
+  display: none;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── FOOTER ───────────────────────────────── */
+.footer {
+  background: var(--ink);
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(245,242,236,0.06);
+}
+
+.footer-logo {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(245,242,236,0.3);
+}
+
+.footer-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: rgba(245,242,236,0.2);
+}
+
+/* ── ANIMATIONS ───────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ───────────────────────────── */
+@media (max-width: 768px) {
+  .hero-nav { padding: 20px 24px; }
+  .nav-links { display: none; }
+  .hero-body { padding: 0 24px; }
+  .hero-counter { right: 24px; bottom: 80px; }
+  .scroll-hint { left: 24px; }
+  .philosophy, .features, .how, .manifesto, .waitlist { padding: 80px 24px; }
+  .stats-bar { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+  .stat-divider { display: none; }
+  .phil-body { grid-template-columns: 1fr; gap: 24px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .how-step { grid-template-columns: 40px 1fr; }
+  .how-step .step-body { grid-column: 2; }
+  .footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HERO ───────────────────────────────── -->
+<section class="hero">
+  <nav class="hero-nav">
+    <div class="nav-logo">get active.</div>
+    <ul class="nav-links">
+      <li><a href="#philosophy">Why</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#waitlist">Join</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero-body">
+    <div class="hero-eyebrow">A daily tracker for real life</div>
+    <h1 class="hero-headline">
+      get active.<br>
+      <em>just show up.</em>
+    </h1>
+    <p class="hero-sub">
+      Four things. Twenty seconds. Every day.<br>
+      No badges. No challenges. No noise.<br>
+      Just you, your data, and the habit of showing up.
+    </p>
+    <div class="hero-cta">
+      <a href="#waitlist" class="btn-primary">Join the waitlist</a>
+      <a href="#philosophy" class="btn-ghost">Read the story</a>
+    </div>
+  </div>
+
+  <div class="hero-counter">
+    <div class="counter-num">365</div>
+    <div class="counter-label">days to get active</div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ── PHILOSOPHY ──────────────────────────── -->
+<section class="philosophy" id="philosophy">
+  <div class="phil-inner">
+    <div class="section-tag">The philosophy</div>
+    <p class="phil-statement">
+      Most fitness apps want you to<br>
+      be an <em>athlete.</em><br>
+      We just want you to move.
+    </p>
+    <div class="phil-body">
+      <div class="phil-col">
+        <p>There's a 15-minute walk that counts. A backyard cricket game with the kids that counts. A swim at lunch that counts. A rest day you logged honestly — that counts too.</p>
+        <p>Activity doesn't care what it looks like. It only cares that you showed up. And the only way to know if you're showing up is to have somewhere honest to look.</p>
+      </div>
+      <div class="phil-col">
+        <p>get active. isn't trying to be your coach, your therapist, or your accountability partner. It's a mirror. A simple, honest daily record of whether you're moving through the world the way you want to.</p>
+        <p>No algorithm is telling you what to do. No leaderboard comparing you to strangers. Just your numbers, your goal, and the quiet satisfaction of a streak that's yours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS BAR ───────────────────────────── -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">4<span>.</span></div>
+    <div class="stat-desc">Things to log daily</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <div class="stat-num">20<span>s</span></div>
+    <div class="stat-desc">To close the day</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <div class="stat-num">75<span>%</span></div>
+    <div class="stat-desc">Default activity goal</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <div class="stat-num">0</div>
+    <div class="stat-desc">Ads. Ever.</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <div class="stat-num">∞</div>
+    <div class="stat-desc">Days of data, yours forever</div>
+  </div>
+</div>
+
+<!-- ── FEATURES ────────────────────────────── -->
+<section class="features" id="features">
+  <div class="features-header">
+    <div class="section-tag">What it does</div>
+    <p style="font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);color:var(--ink);line-height:1.2;font-weight:400;">
+      Everything you need.<br>
+      <em style="font-style:italic;color:#7A7570;">Nothing you don't.</em>
+    </p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-num">01</div>
+      <div class="feature-icon">◎</div>
+      <div class="feature-title">Activity logging</div>
+      <p class="feature-body">Tap what you did. Add a note if you want. That's it. From a walk around the block to a 5am gym session — it all counts the same.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">02</div>
+      <div class="feature-icon">⌇</div>
+      <div class="feature-title">Body composition</div>
+      <p class="feature-body">Track weight, fat mass and lean mass. Seven-day rolling averages smooth the noise so you see the real trend, not yesterday's lunch.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">03</div>
+      <div class="feature-icon">◈</div>
+      <div class="feature-title">Goal tracking</div>
+      <p class="feature-body">Set your own activity target — 70%, 75%, 80% of days. A single bar shows exactly where you are and where you need to be right now.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">04</div>
+      <div class="feature-icon">◐</div>
+      <div class="feature-title">Diet quality</div>
+      <p class="feature-body">Rate your eating on a simple 1–5 scale. Not what you ate — just how well. Over time the pattern becomes very clear.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">05</div>
+      <div class="feature-icon">◇</div>
+      <div class="feature-title">Honest history</div>
+      <p class="feature-body">Every day is shown — active, rest, or unlogged. No hiding the gaps. The full picture is the only picture worth looking at.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">06</div>
+      <div class="feature-icon">◉</div>
+      <div class="feature-title">Your data, always</div>
+      <p class="feature-body">Export everything as a spreadsheet any time. No lock-in. No subscriptions. Your health data belongs to you — full stop.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ────────────────────────── -->
+<section class="how">
+  <div class="how-inner">
+    <div class="section-tag">How it works</div>
+    <p style="font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);color:var(--ink);line-height:1.2;font-weight:400;max-width:480px;">
+      A two-minute setup.<br>A twenty-second daily habit.
+    </p>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="step-num">1</div>
+        <div class="step-title">Set your goal</div>
+        <p class="step-body">Choose what percentage of days you want to be active. Pick your activities. Set your year start date. Done in two minutes.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">2</div>
+        <div class="step-title">Log the day</div>
+        <p class="step-body">Each evening — tap what you did, enter your weight, rate how you ate. Twenty seconds. Add it to your home screen so it's always one tap away.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">3</div>
+        <div class="step-title">Watch the picture form</div>
+        <p class="step-body">After a week, the trends start to emerge. After a month, you have real data. After a year, you have an honest record of the life you lived.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MANIFESTO ───────────────────────────── -->
+<section class="manifesto">
+  <div class="manifesto-inner">
+    <div class="section-tag" style="justify-content:center;color:rgba(245,242,236,0.3);">The only rule</div>
+    <ul class="manifesto-lines">
+      <li>A 15-minute walk <em>counts.</em></li>
+      <li>A swim at lunch <em>counts.</em></li>
+      <li>Backyard cricket with the kids <em>counts.</em></li>
+      <li>A rest day you logged honestly <em>counts.</em></li>
+      <li class="accent">Showing up — in any form — <em>always counts.</em></li>
+    </ul>
+    <p style="font-family:var(--mono);font-size:12px;letter-spacing:0.08em;color:rgba(245,242,236,0.25);">
+      The only workout that doesn't count is the one you didn't log.
+    </p>
+  </div>
+</section>
+
+<!-- ── WAITLIST ─────────────────────────────── -->
+<section class="waitlist" id="waitlist">
+  <div class="waitlist-inner">
+    <div class="section-tag" style="justify-content:center;">Coming soon</div>
+    <h2 class="waitlist-title">Be first to<br><em style="font-style:italic;">get active.</em></h2>
+    <p class="waitlist-sub">
+      We're building something small, honest, and yours.<br>
+      Leave your email and you'll hear from us when it's ready.
+    </p>
+    <div id="form-wrap">
+      <div class="waitlist-form">
+        <input class="waitlist-input" type="email" id="email-input" placeholder="your@email.com">
+        <button class="waitlist-btn" onclick="joinWaitlist()">Join →</button>
+      </div>
+      <p class="waitlist-note">No spam. No newsletters. Just a single email when we're live.</p>
+    </div>
+    <div class="waitlist-success" id="success-msg">
+      You're on the list. We'll be in touch.
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-logo">get active. — just show up.</div>
+  <div class="footer-note">© 2026 · getactive.app · Built with intention</div>
+</footer>
+
+<script>
+function joinWaitlist() {
+  const email = document.getElementById('email-input').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('email-input').style.borderColor = '#C05A40';
+    return;
+  }
+  document.getElementById('form-wrap').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+}
+
+// Intersection observer for fade-in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.feature-card, .how-step, .manifesto-lines li').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
