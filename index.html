@@ -3,924 +3,722 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>get active. — just show up.</title>
-<meta name="description" content="A minimal daily tracker built around one idea: just show up. Log your activity, track your body, own your habits.">
+<title>get active. — Built By Days.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --ink:    #0E0C0A;
-  --ink2:   #2A2622;
-  --cream:  #F5F2EC;
-  --cream2: #EDE9E0;
-  --cream3: #E2DDD4;
-  --accent: #2D5A3D;
-  --accent2:#C8A96E;
-  --mono:   'DM Mono', monospace;
-  --serif:  'Playfair Display', Georgia, serif;
-  --sans:   'DM Sans', sans-serif;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--sans);
-  background: var(--ink);
-  color: var(--cream);
-  overflow-x: hidden;
-}
-
-/* ── HERO ─────────────────────────────────── */
-.hero {
-  min-height: 100vh;
-  background: var(--ink);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(45,90,61,0.18) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(200,169,110,0.08) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-/* Grain overlay */
-.hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  opacity: 0.4;
-}
-
-.hero-nav {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 28px 48px;
-}
-
-.nav-logo {
-  font-family: var(--mono);
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: var(--cream);
-}
-
-.nav-links {
-  display: flex;
-  gap: 32px;
-  list-style: none;
-}
-
-.nav-links a {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(245,242,236,0.5);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover { color: var(--cream); }
-
-.hero-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 48px;
-  position: relative;
-  z-index: 10;
-  max-width: 900px;
-}
-
-.hero-eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent2);
-  margin-bottom: 28px;
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards 0.2s;
-}
-
-.hero-headline {
-  font-family: var(--serif);
-  font-size: clamp(52px, 9vw, 110px);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  margin-bottom: 40px;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 0.4s;
-}
-
-.hero-headline em {
-  font-style: italic;
-  color: var(--accent2);
-}
-
-.hero-sub {
-  font-family: var(--mono);
-  font-size: 14px;
-  color: rgba(245,242,236,0.55);
-  line-height: 1.7;
-  max-width: 480px;
-  margin-bottom: 56px;
-  letter-spacing: 0.02em;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 0.6s;
-}
-
-.hero-cta {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 0.8s;
-}
-
-.btn-primary {
-  display: inline-block;
-  padding: 14px 32px;
-  background: var(--cream);
-  color: var(--ink);
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 2px;
-  transition: all 0.2s;
-}
-
-.btn-primary:hover {
-  background: var(--accent2);
-  color: var(--ink);
-  transform: translateY(-1px);
-}
-
-.btn-ghost {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(245,242,236,0.4);
-  text-decoration: none;
-  transition: color 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-ghost:hover { color: var(--cream); }
-.btn-ghost::after { content: '→'; }
-
-.hero-counter {
-  position: absolute;
-  right: 48px;
-  bottom: 48px;
-  z-index: 10;
-  text-align: right;
-  opacity: 0;
-  animation: fadeUp 1s ease forwards 1.2s;
-}
-
-.counter-num {
-  font-family: var(--serif);
-  font-size: 72px;
-  font-weight: 700;
-  line-height: 1;
-  color: rgba(245,242,236,0.06);
-  letter-spacing: -0.04em;
-}
-
-.counter-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(245,242,236,0.25);
-  margin-top: 4px;
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 40px;
-  left: 48px;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(245,242,236,0.3);
-  opacity: 0;
-  animation: fadeUp 1s ease forwards 1.4s;
-}
-
-.scroll-line {
-  width: 40px;
-  height: 1px;
-  background: rgba(245,242,236,0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.scroll-line::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: rgba(245,242,236,0.6);
-  animation: scrollLine 2s ease infinite 2s;
-}
-
-@keyframes scrollLine {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
-/* ── PHILOSOPHY ───────────────────────────── */
-.philosophy {
-  background: var(--cream);
-  color: var(--ink);
-  padding: 120px 48px;
-  position: relative;
-}
-
-.philosophy::before {
-  content: '"';
-  position: absolute;
-  top: 40px;
-  left: 40px;
-  font-family: var(--serif);
-  font-size: 200px;
-  color: rgba(14,12,10,0.04);
-  line-height: 1;
-  pointer-events: none;
-}
-
-.phil-inner {
-  max-width: 760px;
-  margin: 0 auto;
-}
-
-.section-tag {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.section-tag::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
-}
-
-.phil-statement {
-  font-family: var(--serif);
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 400;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  margin-bottom: 48px;
-}
-
-.phil-statement em {
-  font-style: italic;
-  color: var(--accent);
-}
-
-.phil-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-}
-
-.phil-col p {
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.75;
-  color: #4A4640;
-  margin-bottom: 20px;
-}
-
-.phil-col p:last-child { margin-bottom: 0; }
-
-/* ── STATS BAR ────────────────────────────── */
-.stats-bar {
-  background: var(--ink2);
-  padding: 40px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.stat-num {
-  font-family: var(--serif);
-  font-size: 42px;
-  font-weight: 700;
-  color: var(--cream);
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-
-.stat-num span {
-  color: var(--accent2);
-}
-
-.stat-desc {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(245,242,236,0.4);
-}
-
-.stat-divider {
-  width: 1px;
-  height: 48px;
-  background: rgba(245,242,236,0.08);
-}
-
-/* ── FEATURES ─────────────────────────────── */
-.features {
-  background: var(--cream2);
-  padding: 120px 48px;
-}
-
-.features-header {
-  max-width: 560px;
-  margin-bottom: 80px;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-}
-
-.feature-card {
-  background: var(--cream);
-  padding: 40px 36px;
-  position: relative;
-  transition: background 0.2s;
-}
-
-.feature-card:hover { background: var(--ink); }
-.feature-card:hover .feature-title { color: var(--cream); }
-.feature-card:hover .feature-body { color: rgba(245,242,236,0.5); }
-.feature-card:hover .feature-num { color: rgba(245,242,236,0.06); }
-.feature-card:hover .feature-icon { border-color: rgba(245,242,236,0.15); color: var(--accent2); }
-
-.feature-num {
-  font-family: var(--serif);
-  font-size: 80px;
-  font-weight: 700;
-  color: rgba(14,12,10,0.04);
-  line-height: 1;
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  transition: color 0.2s;
-}
-
-.feature-icon {
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(14,12,10,0.12);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
-  font-size: 18px;
-  transition: all 0.2s;
-}
-
-.feature-title {
-  font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 14px;
-  transition: color 0.2s;
-  line-height: 1.2;
-}
-
-.feature-body {
-  font-family: var(--sans);
-  font-size: 14px;
-  line-height: 1.7;
-  color: #5A5550;
-  transition: color 0.2s;
-}
-
-/* ── HOW IT WORKS ─────────────────────────── */
-.how {
-  background: var(--cream);
-  padding: 120px 48px;
-}
-
-.how-inner {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.how-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-top: 64px;
-}
-
-.how-step {
-  display: grid;
-  grid-template-columns: 60px 1fr 1fr;
-  gap: 40px;
-  align-items: center;
-  padding: 40px 0;
-  border-top: 1px solid rgba(14,12,10,0.08);
-}
-
-.how-step:last-child { border-bottom: 1px solid rgba(14,12,10,0.08); }
-
-.step-num {
-  font-family: var(--serif);
-  font-size: 42px;
-  font-weight: 700;
-  color: rgba(14,12,10,0.08);
-  line-height: 1;
-}
-
-.step-title {
-  font-family: var(--serif);
-  font-size: 24px;
-  font-weight: 400;
-  color: var(--ink);
-  line-height: 1.2;
-}
-
-.step-body {
-  font-family: var(--sans);
-  font-size: 15px;
-  line-height: 1.7;
-  color: #5A5550;
-}
-
-/* ── MANIFESTO ────────────────────────────── */
-.manifesto {
-  background: var(--ink);
-  padding: 140px 48px;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-
-.manifesto::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(45,90,61,0.15) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.manifesto-inner {
-  position: relative;
-  z-index: 2;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.manifesto-lines {
-  list-style: none;
-  margin-bottom: 64px;
-}
-
-.manifesto-lines li {
-  font-family: var(--serif);
-  font-size: clamp(20px, 3vw, 32px);
-  font-weight: 400;
-  line-height: 1.5;
-  color: rgba(245,242,236,0.25);
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(245,242,236,0.06);
-  transition: color 0.3s;
-  cursor: default;
-}
-
-.manifesto-lines li:hover { color: var(--cream); }
-.manifesto-lines li.accent { color: var(--accent2); }
-.manifesto-lines li em { font-style: italic; }
-
-/* ── WAITLIST ─────────────────────────────── */
-.waitlist {
-  background: var(--cream2);
-  padding: 120px 48px;
-}
-
-.waitlist-inner {
-  max-width: 560px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.waitlist-title {
-  font-family: var(--serif);
-  font-size: clamp(32px, 5vw, 56px);
-  font-weight: 400;
-  color: var(--ink);
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.waitlist-sub {
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  color: #7A7570;
-  margin-bottom: 48px;
-  line-height: 1.7;
-}
-
-.waitlist-form {
-  display: flex;
-  gap: 0;
-  max-width: 440px;
-  margin: 0 auto 20px;
-}
-
-.waitlist-input {
-  flex: 1;
-  padding: 14px 20px;
-  border: 1px solid rgba(14,12,10,0.15);
-  border-right: none;
-  background: var(--cream);
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--ink);
-  outline: none;
-  border-radius: 2px 0 0 2px;
-  transition: border-color 0.2s;
-}
-
-.waitlist-input:focus { border-color: var(--accent); }
-.waitlist-input::placeholder { color: #AAA59F; }
-
-.waitlist-btn {
-  padding: 14px 24px;
-  background: var(--ink);
-  color: var(--cream);
-  border: 1px solid var(--ink);
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 0 2px 2px 0;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.waitlist-btn:hover { background: var(--accent); border-color: var(--accent); }
-
-.waitlist-note {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  color: #AAA59F;
-}
-
-.waitlist-success {
-  display: none;
-  font-family: var(--serif);
-  font-size: 22px;
-  font-style: italic;
-  color: var(--accent);
-}
-
-/* ── FOOTER ───────────────────────────────── */
-.footer {
-  background: var(--ink);
-  padding: 40px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid rgba(245,242,236,0.06);
-}
-
-.footer-logo {
-  font-family: var(--mono);
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(245,242,236,0.3);
-}
-
-.footer-note {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  color: rgba(245,242,236,0.2);
-}
-
-/* ── ANIMATIONS ───────────────────────────── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── RESPONSIVE ───────────────────────────── */
-@media (max-width: 768px) {
-  .hero-nav { padding: 20px 24px; }
-  .nav-links { display: none; }
-  .hero-body { padding: 0 24px; }
-  .hero-counter { right: 24px; bottom: 80px; }
-  .scroll-hint { left: 24px; }
-  .philosophy, .features, .how, .manifesto, .waitlist { padding: 80px 24px; }
-  .stats-bar { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
-  .stat-divider { display: none; }
-  .phil-body { grid-template-columns: 1fr; gap: 24px; }
-  .features-grid { grid-template-columns: 1fr; }
-  .how-step { grid-template-columns: 40px 1fr; }
-  .how-step .step-body { grid-column: 2; }
-  .footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#1A1814;
+  --ink2:#222018;
+  --cream:#F5F2EC;
+  --cream2:#E8E4DC;
+  --muted:#9C9890;
+  --gold:#C8A96E;
+  --gold2:#D4B97E;
+  --slate:#3D5470;
+  --mono:'DM Mono',monospace;
+  --serif:'Courier Prime',monospace;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--cream);font-family:var(--mono);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 48px;
+  background:rgba(26,24,20,0.94);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(245,242,236,0.05);
+}
+.nav-logo{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--cream);letter-spacing:-0.02em;}
+.nav-logo span{color:var(--gold);}
+.nav-contact{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
+.nav-contact:hover{color:var(--gold);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+  padding:140px 80px 100px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  top:-300px;right:-200px;
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(61,84,112,0.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  bottom:-200px;left:-100px;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(200,169,110,0.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.hero-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--gold);}
+.hero-brand{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(42px,5vw,72px);
+  color:var(--cream);letter-spacing:-0.03em;line-height:1;
+  margin-bottom:8px;
+}
+.hero-brand span{color:var(--gold);}
+.hero-tagline{
+  font-family:var(--mono);font-size:clamp(11px,1.1vw,13px);
+  letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:40px;
+}
+.hero-line{
+  font-family:var(--serif);font-size:clamp(16px,1.5vw,20px);
+  color:rgba(245,242,236,0.8);line-height:1.65;
+  margin-bottom:36px;max-width:500px;
+}
+.hero-line em{color:var(--gold);font-style:normal;font-weight:700;}
+.beta-tag{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:24px;
+}
+.beta-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+.hero-form{display:flex;gap:0;max-width:460px;margin-bottom:10px;width:100%;}
+.hero-form input{
+  flex:1;padding:14px 18px;
+  background:rgba(245,242,236,0.05);
+  border:1px solid rgba(245,242,236,0.1);
+  border-right:none;border-radius:4px 0 0 4px;
+  font-family:var(--mono);font-size:12px;color:var(--cream);
+  outline:none;transition:border-color 0.2s;
+}
+.hero-form input::placeholder{color:var(--muted);}
+.hero-form input:focus{border-color:rgba(200,169,110,0.5);}
+.hero-form button{
+  padding:14px 22px;background:var(--gold);color:var(--ink);
+  border:none;border-radius:0 4px 4px 0;
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  cursor:pointer;font-weight:500;white-space:nowrap;
+  transition:background 0.15s;
+}
+.hero-form button:hover{background:var(--gold2);}
+.form-note{font-size:10px;color:var(--muted);letter-spacing:0.03em;line-height:1.6;max-width:360px;}
+.form-note em{color:rgba(245,242,236,0.5);font-style:normal;}
+.form-success{display:none;font-family:var(--serif);font-size:15px;color:var(--gold);margin-top:8px;}
+
+/* Hero right — phone */
+.hero-right{display:flex;justify-content:center;align-items:center;position:relative;}
+.hero-phone-outer{
+  width:260px;
+  filter:drop-shadow(0 40px 60px rgba(0,0,0,0.7));
+  flex-shrink:0;
+}
+.hero-phone{
+  background:#1A1814;border-radius:32px;
+  border:1.5px solid rgba(245,242,236,0.1);
+  overflow:hidden;transform:rotate(2.5deg);
+  transition:transform 0.4s ease;
+}
+.hero-phone:hover{transform:rotate(0deg) scale(1.02);}
+.pnotch{height:22px;background:#1A1814;display:flex;align-items:center;justify-content:center;}
+.pnpill{width:50px;height:8px;background:#111;border-radius:8px;}
+
+/* ── PHILOSOPHY ── */
+.philosophy{
+  padding:100px 80px;
+  background:var(--ink2);
+  border-top:1px solid rgba(245,242,236,0.05);
+  border-bottom:1px solid rgba(245,242,236,0.05);
+}
+.phil-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:64px;max-width:1000px;margin:0 auto;}
+.phil-bar{width:28px;height:2px;background:var(--gold);margin-bottom:22px;}
+.phil-h{
+  font-family:var(--serif);font-weight:700;font-size:19px;
+  color:var(--cream);margin-bottom:14px;line-height:1.3;letter-spacing:-0.01em;
+}
+.phil-b{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.85;letter-spacing:0.02em;}
+
+/* ── SCREENS SECTION ── */
+.screens{padding:100px 80px;background:var(--ink);overflow:visible;}
+.sec-eyebrow{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:14px;display:flex;align-items:center;gap:10px;
+}
+.sec-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--gold);}
+.sec-h{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(28px,3.5vw,46px);
+  color:var(--cream);margin-bottom:8px;letter-spacing:-0.02em;line-height:1.15;
+}
+.sec-sub{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:72px;letter-spacing:0.04em;}
+
+/* Phone mockup system */
+.screens-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;align-items:start;padding:0 100px;}
+.screen-col{}
+.screen-col:nth-child(even){margin-top:48px;}
+.phone-wrap{position:relative;margin-bottom:20px;}
+.phone-mock{
+  width:100%;background:#1A1814;
+  border-radius:22px;
+  border:1px solid rgba(245,242,236,0.1);
+  overflow:hidden;
+  box-shadow:0 24px 48px rgba(0,0,0,0.5);
+}
+.pm-notch{height:18px;background:#1A1814;display:flex;align-items:center;justify-content:center;}
+.pm-pill{width:42px;height:7px;background:#111;border-radius:7px;}
+.pm-sc{padding:8px 10px 12px;}
+.screen-name{
+  font-family:var(--serif);font-weight:700;font-size:15px;
+  color:var(--cream);margin-bottom:6px;
+}
+.screen-desc{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:0;}
+
+/* Callout annotation system */
+.callout-box{
+  position:absolute;
+  background:var(--cream);color:var(--ink);
+  font-family:var(--mono);font-size:8.5px;
+  line-height:1.4;padding:5px 8px;
+  border-radius:4px;max-width:100px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.3);
+  z-index:10;pointer-events:none;
+  font-weight:500;
+}
+.callout-dot{
+  position:absolute;width:6px;height:6px;
+  border-radius:50%;background:var(--gold);
+  z-index:11;pointer-events:none;
+}
+
+/* ── App UI micro elements ── */
+.u-eyebrow{font-size:5.5px;color:#9C9890;letter-spacing:0.1em;text-transform:uppercase;}
+.u-logo{font-size:11px;font-weight:700;color:#F5F2EC;font-family:'Courier Prime',monospace;letter-spacing:-0.02em;}
+.u-logo-dot{color:#C8A96E;}
+.u-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.u-date{font-size:5.5px;color:#9C9890;text-align:right;line-height:1.4;}
+.u-nav{display:flex;border-bottom:1px solid rgba(245,242,236,0.1);margin-bottom:6px;}
+.u-nav span{font-size:5.5px;letter-spacing:0.05em;text-transform:uppercase;padding:3px 4px;color:#9C9890;}
+.u-nav span.u-act{color:#F5F2EC;border-bottom:1px solid #F5F2EC;}
+.u-sl{font-size:5.5px;letter-spacing:0.1em;text-transform:uppercase;color:#9C9890;margin-bottom:4px;}
+/* Hero card */
+.u-hc{border-radius:5px;padding:8px 9px 7px;margin-bottom:5px;}
+.u-hcey{font-size:5px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:2px;}
+.u-hcnum{font-size:28px;font-weight:700;color:#fff;font-family:'Courier Prime',monospace;line-height:1;margin-bottom:3px;}
+.u-hcnum span{font-size:10px;opacity:0.2;font-weight:400;}
+.u-hcpace{font-size:7px;font-weight:700;color:#fff;margin-bottom:1px;}
+.u-hcsub{font-size:5.5px;color:rgba(255,255,255,0.6);}
+/* Pills */
+.u-pills{display:flex;gap:2px;margin-bottom:4px;}
+.u-pi{flex:1;padding:3px 2px;border-radius:2px;font-size:5.5px;text-align:center;background:rgba(245,242,236,0.05);color:rgba(245,242,236,0.25);border:1px solid rgba(245,242,236,0.07);font-family:'Courier Prime',monospace;}
+.u-pi-on{background:#3D5470;color:#fff;border-color:#3D5470;}
+/* Bar */
+.u-bar{height:5px;border-radius:3px;overflow:hidden;margin-bottom:2px;}
+.u-barleg{display:flex;gap:6px;margin-bottom:5px;}
+.u-barleg span{font-size:5px;color:#9C9890;display:flex;align-items:center;gap:2px;}
+.u-sw{display:inline-block;width:6px;height:3px;border-radius:1px;}
+/* Metrics grid */
+.u-mg{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.u-mc{background:rgba(245,242,236,0.05);border-radius:3px;padding:5px 5px;}
+.u-mcl{font-size:5px;letter-spacing:0.06em;text-transform:uppercase;color:#9C9890;margin-bottom:2px;}
+.u-mcv{font-size:13px;font-weight:500;font-family:'Courier Prime',monospace;line-height:1;}
+.u-mcu{font-size:5px;color:#9C9890;}
+.u-mct{font-size:5px;margin-top:1px;}
+/* Chips */
+.u-chips{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:4px;}
+.u-chip{background:rgba(245,242,236,0.06);border:1px solid rgba(245,242,236,0.08);border-radius:3px;padding:5px 3px;font-size:6px;color:#A8A4A0;text-align:center;font-family:'Courier Prime',monospace;}
+.u-chip-full{grid-column:span 2;}
+.u-chip-sel{background:#8B3A2A;color:#F5F2EC;border-color:#8B3A2A;}
+/* Sub chips */
+.u-subchips{display:flex;gap:3px;margin-bottom:4px;}
+.u-sc-sick{flex:1;padding:3px 2px;border-radius:2px;font-size:5.5px;text-align:center;background:rgba(192,112,48,0.15);color:#C07030;border:1px solid rgba(192,112,48,0.3);}
+.u-sc-hol{flex:1;padding:3px 2px;border-radius:2px;font-size:5.5px;text-align:center;background:rgba(42,90,160,0.15);color:#6A8AC8;border:1px solid rgba(42,90,160,0.25);}
+.u-sc-rest{flex:1;padding:3px 2px;border-radius:2px;font-size:5.5px;text-align:center;background:rgba(156,152,144,0.15);color:#9C9890;border:1px solid rgba(156,152,144,0.2);}
+/* Body metric inputs */
+.u-bmlabel{font-size:5.5px;letter-spacing:0.1em;text-transform:uppercase;color:#9C9890;margin-bottom:3px;}
+.u-bmrow{display:flex;gap:3px;margin-bottom:4px;}
+.u-bmi{flex:1;background:rgba(245,242,236,0.06);border:1px solid rgba(245,242,236,0.09);border-radius:3px;padding:4px 2px;text-align:center;font-size:7px;color:#6C6860;font-family:'Courier Prime',monospace;}
+/* Diet */
+.u-dietrow{display:flex;gap:2px;margin-bottom:7px;}
+.u-db{flex:1;background:rgba(245,242,236,0.06);border:1px solid rgba(245,242,236,0.08);border-radius:2px;padding:4px 2px;text-align:center;font-size:7px;color:#A8A4A0;font-family:'Courier Prime',monospace;}
+/* Save */
+.u-save{background:#F5F2EC;border-radius:3px;padding:7px;text-align:center;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:#1A1814;font-family:'Courier Prime',monospace;font-weight:700;}
+/* Streak */
+.u-streak{font-size:6.5px;color:#C8A96E;margin-bottom:4px;font-family:'Courier Prime',monospace;}
+/* History rows */
+.u-hrow{display:flex;justify-content:space-between;align-items:flex-start;padding:4px 0;border-bottom:0.5px solid rgba(245,242,236,0.06);}
+.u-hdate{font-size:6px;color:#9C9890;min-width:28px;font-family:'Courier Prime',monospace;}
+.u-hdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:1px;}
+.u-hact{font-size:7px;color:#F5F2EC;font-family:'Courier Prime',monospace;}
+.u-hbadge{font-size:5px;padding:1px 4px;border-radius:2px;margin-top:2px;display:inline-block;}
+.u-hmet{font-size:5.5px;color:#9C9890;text-align:right;font-family:'Courier Prime',monospace;line-height:1.4;}
+
+/* ── WHO IT'S FOR ── */
+.who{padding:100px 80px;background:var(--ink2);}
+.who-inner{max-width:700px;}
+.who-h{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(28px,3.5vw,46px);
+  color:var(--cream);margin-bottom:24px;
+  letter-spacing:-0.02em;line-height:1.15;
+}
+.who-body{
+  font-family:var(--mono);font-size:13px;
+  color:rgba(245,242,236,0.72);line-height:1.9;
+  margin-bottom:28px;letter-spacing:0.02em;
+}
+.who-gold{
+  font-family:var(--serif);font-size:18px;
+  color:var(--gold);line-height:1.55;
+  padding-left:20px;border-left:2px solid var(--gold);
+  margin-bottom:64px;
+}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;border-top:1px solid rgba(245,242,236,0.07);padding-top:48px;}
+.pil-num{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:0.1em;margin-bottom:10px;}
+.pil-h{font-family:var(--serif);font-weight:700;font-size:16px;color:var(--cream);margin-bottom:10px;line-height:1.3;}
+.pil-b{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.8;}
+
+/* ── BETA CTA ── */
+.betacta{
+  padding:100px 80px;background:var(--ink);
+  text-align:center;
+  border-top:1px solid rgba(245,242,236,0.05);
+}
+.beta-h{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(32px,4.5vw,60px);
+  color:var(--cream);margin-bottom:16px;
+  letter-spacing:-0.03em;line-height:1.1;
+}
+.beta-sub{
+  font-family:var(--mono);font-size:13px;
+  color:var(--muted);margin-bottom:8px;
+  line-height:1.85;max-width:480px;
+  margin-left:auto;margin-right:auto;
+}
+.beta-note{font-size:11px;color:var(--muted);margin-bottom:44px;letter-spacing:0.03em;}
+.beta-form{display:flex;gap:0;max-width:460px;margin:0 auto 14px;}
+.beta-form input{
+  flex:1;padding:16px 20px;
+  background:rgba(245,242,236,0.05);
+  border:1px solid rgba(245,242,236,0.1);
+  border-right:none;border-radius:4px 0 0 4px;
+  font-family:var(--mono);font-size:12px;color:var(--cream);outline:none;
+}
+.beta-form input::placeholder{color:var(--muted);}
+.beta-form button{
+  padding:16px 24px;background:var(--cream);color:var(--ink);
+  border:none;border-radius:0 4px 4px 0;
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  cursor:pointer;font-weight:500;transition:background 0.15s;
+}
+.beta-form button:hover{background:var(--cream2);}
+.beta-success{display:none;font-family:var(--serif);font-size:16px;color:var(--gold);margin-top:16px;line-height:1.6;}
+.beta-privacy{font-size:10px;color:rgba(156,152,144,0.6);letter-spacing:0.04em;}
+
+/* ── FOOTER ── */
+footer{
+  padding:36px 80px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid rgba(245,242,236,0.05);
+}
+.foot-logo{font-family:var(--serif);font-weight:700;font-size:16px;color:var(--cream);}
+.foot-logo span{color:var(--gold);}
+.foot-tag{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.08em;}
+.foot-email{font-family:var(--mono);font-size:10px;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.foot-email:hover{color:var(--gold);}
+.foot-right{font-family:var(--mono);font-size:10px;color:rgba(156,152,144,0.4);letter-spacing:0.04em;}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+.hero-eyebrow{animation:fadeUp 0.55s 0.05s ease both;}
+.hero-brand{animation:fadeUp 0.55s 0.12s ease both;}
+.hero-tagline{animation:fadeUp 0.55s 0.18s ease both;}
+.hero-line{animation:fadeUp 0.55s 0.25s ease both;}
+.beta-tag{animation:fadeUp 0.55s 0.32s ease both;}
+.hero-form{animation:fadeUp 0.55s 0.38s ease both;}
+.form-note{animation:fadeUp 0.55s 0.44s ease both;}
+.hero-right{animation:fadeUp 0.7s 0.2s ease both;}
+
+/* ── RESPONSIVE ── */
+/* Hide callouts on smaller screens */
+@media(max-width:1200px){
+  .callout-box,[style*="position:absolute"][style*="font-family:'DM Mono'"]{display:none !important;}
+  .screens-grid{padding:0 20px;}
+}
+@media(max-width:1000px){
+  nav{padding:16px 24px;}
+  .hero{grid-template-columns:1fr;padding:110px 28px 70px;gap:50px;min-height:auto;}
+  .hero-right{order:-1;}
+  .hero-phone-outer{width:200px;}
+  .hero::before,.hero::after{display:none;}
+  .philosophy{padding:70px 28px;}
+  .phil-grid{grid-template-columns:1fr;gap:40px;}
+  .screens{padding:60px 0 70px;}
+  .screens-grid{
+    display:flex;overflow-x:auto;gap:20px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding:0 28px 24px;
+  }
+  .screen-col{min-width:70vw;scroll-snap-align:start;flex-shrink:0;}
+  .screen-col:nth-child(even){margin-top:0;}
+  .who{padding:70px 28px;}
+  .who-inner{max-width:100%;}
+  .pillars{grid-template-columns:1fr;gap:28px;}
+  .betacta{padding:70px 28px;}
+  footer{flex-direction:column;gap:10px;padding:28px 24px;text-align:center;}
 }
 </style>
 </head>
 <body>
 
-<!-- ── HERO ───────────────────────────────── -->
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">get active<span>.</span></div>
+  <a class="nav-contact" href="mailto:nea.builds@gmail.com">nea.builds@gmail.com</a>
+</nav>
+
+<!-- ── HERO ── -->
 <section class="hero">
-  <nav class="hero-nav">
-    <div class="nav-logo">get active.</div>
-    <ul class="nav-links">
-      <li><a href="#philosophy">Why</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#waitlist">Join</a></li>
-    </ul>
-  </nav>
-
-  <div class="hero-body">
-    <div class="hero-eyebrow">A daily tracker for real life</div>
-    <h1 class="hero-headline">
-      get active.<br>
-      <em>just show up.</em>
-    </h1>
-    <p class="hero-sub">
-      Four things. Twenty seconds. Every day.<br>
-      No badges. No challenges. No noise.<br>
-      Just you, your data, and the habit of showing up.
-    </p>
-    <div class="hero-cta">
-      <a href="#waitlist" class="btn-primary">Join the waitlist</a>
-      <a href="#philosophy" class="btn-ghost">Read the story</a>
-    </div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">Personal activity tracker</div>
+    <h1 class="hero-brand">get active<span>.</span></h1>
+    <div class="hero-tagline">Built By Days.</div>
+    <p class="hero-line">get active. doesn't care if you rode your bike with your toddler or ran an ultramarathon. It just wants to know: <em>were you active today?</em></p>
+    <div class="beta-tag"><span class="beta-dot"></span>Currently in private beta</div>
+    <form class="hero-form" id="hero-form" action="https://formspree.io/f/xykvpvbr" method="POST">
+      <input type="email" name="email" placeholder="your@email.com" required>
+      <button type="submit">Request access →</button>
+    </form>
+    <div class="form-note">We'll set up your account and send login details personally. <em>We review requests weekly.</em></div>
+    <div class="form-success" id="hero-success">You're on the list. We'll send your login details within a day or two.</div>
   </div>
-
-  <div class="hero-counter">
-    <div class="counter-num">365</div>
-    <div class="counter-label">days to get active</div>
-  </div>
-
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-    scroll
-  </div>
-</section>
-
-<!-- ── PHILOSOPHY ──────────────────────────── -->
-<section class="philosophy" id="philosophy">
-  <div class="phil-inner">
-    <div class="section-tag">The philosophy</div>
-    <p class="phil-statement">
-      Most fitness apps want you to<br>
-      be an <em>athlete.</em><br>
-      We just want you to move.
-    </p>
-    <div class="phil-body">
-      <div class="phil-col">
-        <p>There's a 15-minute walk that counts. A backyard cricket game with the kids that counts. A swim at lunch that counts. A rest day you logged honestly — that counts too.</p>
-        <p>Activity doesn't care what it looks like. It only cares that you showed up. And the only way to know if you're showing up is to have somewhere honest to look.</p>
-      </div>
-      <div class="phil-col">
-        <p>get active. isn't trying to be your coach, your therapist, or your accountability partner. It's a mirror. A simple, honest daily record of whether you're moving through the world the way you want to.</p>
-        <p>No algorithm is telling you what to do. No leaderboard comparing you to strangers. Just your numbers, your goal, and the quiet satisfaction of a streak that's yours.</p>
+  <div class="hero-right">
+    <div class="hero-phone-outer">
+      <div class="hero-phone">
+        <div class="pnotch"><div class="pnpill"></div></div>
+        <div class="pm-sc">
+          <div class="u-hdr">
+            <div><div class="u-eyebrow">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div>
+            <div class="u-date">24 May 2026<br>Sunday</div>
+          </div>
+          <div class="u-nav"><span>Log</span><span class="u-act">Stats</span><span>Graphs</span><span>History</span></div>
+          <div class="u-sl">Year to date</div>
+          <div class="u-hc" style="background:#3D5470;">
+            <div class="u-hcey">Active days</div>
+            <div class="u-hcnum">73 <span>of 104</span></div>
+            <div class="u-hcpace">50.7% pace</div>
+            <div class="u-hcsub">35 days behind goal</div>
+          </div>
+          <div class="u-pills">
+            <div class="u-pi" style="opacity:0.3;">1M</div>
+            <div class="u-pi" style="opacity:0.3;">3M</div>
+            <div class="u-pi">6M</div>
+            <div class="u-pi u-pi-on">Year</div>
+          </div>
+          <div class="u-bar" style="background:linear-gradient(to right,#3D5470 20%,#8AAAC8 20%,#8AAAC8 29%,rgba(255,255,255,0.07) 29%)"></div>
+          <div class="u-barleg">
+            <span><span class="u-sw" style="background:#3D5470;"></span>active days</span>
+            <span><span class="u-sw" style="background:#8AAAC8;border:1px solid rgba(255,255,255,0.15);"></span>on-pace target</span>
+          </div>
+          <div style="font-size:5.5px;letter-spacing:0.08em;text-transform:uppercase;color:#9C9890;text-align:center;margin-bottom:4px;">Body metrics · 7-day avg</div>
+          <div class="u-mg">
+            <div class="u-mc"><div class="u-mcl">7D Avg Weight</div><div class="u-mcv" style="color:#5DBA7D;">80.7</div><div class="u-mcu">kg</div><div class="u-mct" style="color:#5DBA7D;">↓ decreasing</div></div>
+            <div class="u-mc"><div class="u-mcl">7D Avg Fat</div><div class="u-mcv" style="color:#E05050;">20.3</div><div class="u-mcu">kg</div><div class="u-mct" style="color:#9C9890;">→ stable</div></div>
+            <div class="u-mc"><div class="u-mcl">7D Avg Lean</div><div class="u-mcv" style="color:#7AB0E8;">57.3</div><div class="u-mcu">kg</div><div class="u-mct" style="color:#9C9890;">→ stable</div></div>
+            <div class="u-mc"><div class="u-mcl">Avg Diet Score</div><div class="u-mcv" style="color:#F5F2EC;">3.7</div><div class="u-mcu">/ 5 · last 7 days</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── STATS BAR ───────────────────────────── -->
-<div class="stats-bar">
-  <div class="stat-item">
-    <div class="stat-num">4<span>.</span></div>
-    <div class="stat-desc">Things to log daily</div>
-  </div>
-  <div class="stat-divider"></div>
-  <div class="stat-item">
-    <div class="stat-num">20<span>s</span></div>
-    <div class="stat-desc">To close the day</div>
-  </div>
-  <div class="stat-divider"></div>
-  <div class="stat-item">
-    <div class="stat-num">75<span>%</span></div>
-    <div class="stat-desc">Default activity goal</div>
-  </div>
-  <div class="stat-divider"></div>
-  <div class="stat-item">
-    <div class="stat-num">0</div>
-    <div class="stat-desc">Ads. Ever.</div>
-  </div>
-  <div class="stat-divider"></div>
-  <div class="stat-item">
-    <div class="stat-num">∞</div>
-    <div class="stat-desc">Days of data, yours forever</div>
-  </div>
-</div>
-
-<!-- ── FEATURES ────────────────────────────── -->
-<section class="features" id="features">
-  <div class="features-header">
-    <div class="section-tag">What it does</div>
-    <p style="font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);color:var(--ink);line-height:1.2;font-weight:400;">
-      Everything you need.<br>
-      <em style="font-style:italic;color:#7A7570;">Nothing you don't.</em>
-    </p>
-  </div>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-num">01</div>
-      <div class="feature-icon">◎</div>
-      <div class="feature-title">Activity logging</div>
-      <p class="feature-body">Tap what you did. Add a note if you want. That's it. From a walk around the block to a 5am gym session — it all counts the same.</p>
+<!-- ── PHILOSOPHY ── -->
+<section class="philosophy">
+  <div class="phil-grid">
+    <div>
+      <div class="phil-bar"></div>
+      <div class="phil-h">Thirty seconds a day. That's the whole commitment.</div>
+      <div class="phil-b">Pick your activity. Save. Done. The app gets out of your way so you can get on with your day. No lengthy check-ins. No habit stacking. Just the log.</div>
     </div>
-    <div class="feature-card">
-      <div class="feature-num">02</div>
-      <div class="feature-icon">⌇</div>
-      <div class="feature-title">Body composition</div>
-      <p class="feature-body">Track weight, fat mass and lean mass. Seven-day rolling averages smooth the noise so you see the real trend, not yesterday's lunch.</p>
+    <div>
+      <div class="phil-bar"></div>
+      <div class="phil-h">You always know where you actually stand.</div>
+      <div class="phil-b">No inflated streaks. No confetti for mediocre days. Just your number, your pace, your year. Honest by design. The truth is more motivating than flattery.</div>
     </div>
-    <div class="feature-card">
-      <div class="feature-num">03</div>
-      <div class="feature-icon">◈</div>
-      <div class="feature-title">Goal tracking</div>
-      <p class="feature-body">Set your own activity target — 70%, 75%, 80% of days. A single bar shows exactly where you are and where you need to be right now.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-num">04</div>
-      <div class="feature-icon">◐</div>
-      <div class="feature-title">Diet quality</div>
-      <p class="feature-body">Rate your eating on a simple 1–5 scale. Not what you ate — just how well. Over time the pattern becomes very clear.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-num">05</div>
-      <div class="feature-icon">◇</div>
-      <div class="feature-title">Honest history</div>
-      <p class="feature-body">Every day is shown — active, rest, or unlogged. No hiding the gaps. The full picture is the only picture worth looking at.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-num">06</div>
-      <div class="feature-icon">◉</div>
-      <div class="feature-title">Your data, always</div>
-      <p class="feature-body">Export everything as a spreadsheet any time. No lock-in. No subscriptions. Your health data belongs to you — full stop.</p>
+    <div>
+      <div class="phil-bar"></div>
+      <div class="phil-h">One bad week doesn't define your year.</div>
+      <div class="phil-b">Rest days are logged here too. No streak resets. No guilt. Just an honest record of what you're building — day by day, across a full year.</div>
     </div>
   </div>
 </section>
 
-<!-- ── HOW IT WORKS ────────────────────────── -->
-<section class="how">
-  <div class="how-inner">
-    <div class="section-tag">How it works</div>
-    <p style="font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);color:var(--ink);line-height:1.2;font-weight:400;max-width:480px;">
-      A two-minute setup.<br>A twenty-second daily habit.
-    </p>
-    <div class="how-steps">
-      <div class="how-step">
-        <div class="step-num">1</div>
-        <div class="step-title">Set your goal</div>
-        <p class="step-body">Choose what percentage of days you want to be active. Pick your activities. Set your year start date. Done in two minutes.</p>
+<!-- ── SCREENS ── -->
+<section class="screens">
+  <div class="sec-eyebrow">The whole app</div>
+  <h2 class="sec-h">Everything you need.<br>Nothing you don't.</h2>
+  <p class="sec-sub">Four screens. That's it. <span style="display:none;" class="swipe-hint">Swipe to explore →</span></p>
+  <style>@media(max-width:1000px){.swipe-hint{display:inline !important;color:var(--gold);}}</style>
+  <div class="screens-grid">
+
+    <!-- LOG -->
+    <div class="screen-col">
+      <div class="phone-wrap" style="position:relative;">
+        <div class="phone-mock">
+          <div class="pm-notch"><div class="pm-pill"></div></div>
+          <div class="pm-sc">
+            <div class="u-hdr"><div><div class="u-eyebrow">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">24 May<br>Sunday</div></div>
+            <div class="u-nav"><span class="u-act">Log</span><span>Stats</span><span>Graphs</span><span>History</span></div>
+            <div style="font-size:8px;font-weight:700;color:#F5F2EC;margin-bottom:1px;font-family:'Courier Prime',monospace;">Today</div>
+            <div class="u-streak">90 day streak 🔥</div>
+            <div class="u-sl">Activity</div>
+            <div class="u-chips">
+              <div class="u-chip">Pickleball</div><div class="u-chip">Gym</div>
+              <div class="u-chip">Walk</div><div class="u-chip">Bike Ride</div>
+              <div class="u-chip">Zwift</div><div class="u-chip">Other</div>
+              <div class="u-chip u-chip-full u-chip-sel">No Activity</div>
+            </div>
+            <div class="u-subchips">
+              <div class="u-sc-sick">Sick</div>
+              <div class="u-sc-hol">Holiday</div>
+              <div class="u-sc-rest">Rest</div>
+            </div>
+            <div class="u-bmlabel">Body metrics (kg)</div>
+            <div class="u-bmrow"><div class="u-bmi">—</div><div class="u-bmi">—</div><div class="u-bmi">—</div></div>
+            <div class="u-dietrow"><div class="u-db">1</div><div class="u-db">2</div><div class="u-db">3</div><div class="u-db">4</div><div class="u-db">5</div></div>
+            <div class="u-save">Save entry →</div>
+          </div>
+        </div>
+        <!-- Callouts -->
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:90px;line-height:1.4;right:-96px;top:48px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">90 days in a row</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;right:8px;top:56px;"></div>
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:90px;line-height:1.4;right:-96px;top:118px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">Rest days count here too</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;right:8px;top:128px;"></div>
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:90px;line-height:1.4;right:-96px;bottom:16px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">Done in 30 seconds</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;right:8px;bottom:26px;"></div>
       </div>
-      <div class="how-step">
-        <div class="step-num">2</div>
-        <div class="step-title">Log the day</div>
-        <p class="step-body">Each evening — tap what you did, enter your weight, rate how you ate. Twenty seconds. Add it to your home screen so it's always one tap away.</p>
+      <div class="screen-name">Log</div>
+      <div class="screen-desc">Pick what you did. Anything counts. Save. Done.</div>
+    </div>
+
+    <!-- STATS -->
+    <div class="screen-col">
+      <div class="phone-wrap" style="position:relative;">
+        <div class="phone-mock">
+          <div class="pm-notch"><div class="pm-pill"></div></div>
+          <div class="pm-sc">
+            <div class="u-hdr"><div><div class="u-eyebrow">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">24 May<br>Sunday</div></div>
+            <div class="u-nav"><span>Log</span><span class="u-act">Stats</span><span>Graphs</span><span>History</span></div>
+            <div class="u-sl">Year to date</div>
+            <div class="u-hc" style="background:#3D5470;">
+              <div class="u-hcey">Active days</div>
+              <div class="u-hcnum">73 <span>of 104</span></div>
+              <div class="u-hcpace">50.7% pace</div>
+              <div class="u-hcsub">35 days behind goal</div>
+            </div>
+            <div class="u-pills">
+              <div class="u-pi" style="opacity:0.3;">1M</div><div class="u-pi" style="opacity:0.3;">3M</div><div class="u-pi">6M</div><div class="u-pi u-pi-on">Year</div>
+            </div>
+            <div class="u-bar" style="background:linear-gradient(to right,#3D5470 20%,#8AAAC8 20%,#8AAAC8 29%,rgba(255,255,255,0.07) 29%)"></div>
+            <div class="u-barleg"><span><span class="u-sw" style="background:#3D5470;"></span>active days</span><span><span class="u-sw" style="background:#8AAAC8;"></span>on-pace target</span></div>
+            <div style="font-size:5.5px;letter-spacing:0.08em;text-transform:uppercase;color:#9C9890;text-align:center;margin-bottom:3px;">Body metrics · 7-day avg</div>
+            <div class="u-mg">
+              <div class="u-mc"><div class="u-mcl">7D Avg Weight</div><div class="u-mcv" style="color:#5DBA7D;">80.7</div><div class="u-mcu">kg</div><div class="u-mct" style="color:#5DBA7D;">↓ decreasing</div></div>
+              <div class="u-mc"><div class="u-mcl">7D Avg Fat</div><div class="u-mcv" style="color:#E05050;">20.3</div><div class="u-mcu">kg</div><div class="u-mct" style="color:#9C9890;">→ stable</div></div>
+              <div class="u-mc"><div class="u-mcl">7D Avg Lean</div><div class="u-mcv" style="color:#7AB0E8;">57.3</div><div class="u-mcu">kg</div><div class="u-mct" style="color:#9C9890;">→ stable</div></div>
+              <div class="u-mc"><div class="u-mcl">Avg Diet</div><div class="u-mcv" style="color:#F5F2EC;">3.7</div><div class="u-mcu">/ 5 · last 7 days</div></div>
+            </div>
+          </div>
+        </div>
+        <!-- Callouts -->
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:88px;line-height:1.4;left:-96px;top:54px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">Your real number. Never inflated.</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;left:8px;top:66px;"></div>
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:88px;line-height:1.4;left:-96px;top:114px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">Where you are vs where you want to be</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;left:8px;top:122px;"></div>
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:88px;line-height:1.4;left:-96px;bottom:30px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">7-day trends, colour-coded</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;left:20px;bottom:44px;"></div>
       </div>
-      <div class="how-step">
-        <div class="step-num">3</div>
-        <div class="step-title">Watch the picture form</div>
-        <p class="step-body">After a week, the trends start to emerge. After a month, you have real data. After a year, you have an honest record of the life you lived.</p>
+      <div class="screen-name">Stats</div>
+      <div class="screen-desc">Your honest number and where you stand.</div>
+    </div>
+
+    <!-- GRAPHS -->
+    <div class="screen-col">
+      <div class="phone-wrap" style="position:relative;">
+        <div class="phone-mock">
+          <div class="pm-notch"><div class="pm-pill"></div></div>
+          <div class="pm-sc">
+            <div class="u-hdr"><div><div class="u-eyebrow">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">24 May<br>Sunday</div></div>
+            <div class="u-nav"><span>Log</span><span>Stats</span><span class="u-act">Graphs</span><span>History</span></div>
+            <div class="u-pills" style="margin-bottom:5px;"><div class="u-pi" style="opacity:0.3;">1M</div><div class="u-pi" style="opacity:0.3;">3M</div><div class="u-pi">6M</div><div class="u-pi u-pi-on">Year</div></div>
+            <div class="u-sl">Active days · swipe for monthly view</div>
+            <div style="background:rgba(245,242,236,0.03);border-radius:3px;padding:5px 5px 3px;margin-bottom:4px;">
+              <div style="font-size:5px;color:#9C9890;margin-bottom:2px;display:flex;justify-content:space-between;"><span>Cumulative vs pace</span><span style="color:#F5F2EC;">— your days ·· on-pace</span></div>
+              <svg width="100%" height="52" viewBox="0 0 130 52">
+                <line x1="0" y1="42" x2="130" y2="42" stroke="rgba(245,242,236,0.06)" stroke-width="0.5"/>
+                <line x1="0" y1="28" x2="130" y2="28" stroke="rgba(245,242,236,0.06)" stroke-width="0.5"/>
+                <line x1="0" y1="14" x2="130" y2="14" stroke="rgba(245,242,236,0.06)" stroke-width="0.5"/>
+                <line x1="0" y1="48" x2="130" y2="4" stroke="#8AAAC8" stroke-width="1" stroke-dasharray="3,2"/>
+                <polyline points="0,48 18,44 36,40 54,36 72,32 90,28 108,25 130,22" fill="none" stroke="#3D5470" stroke-width="2" stroke-linecap="round"/>
+                <polygon points="0,48 18,44 36,40 54,36 72,32 90,28 108,25 130,22 130,48" fill="rgba(61,84,112,0.15)"/>
+                <text x="1" y="51" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Jan 26</text>
+                <text x="50" y="51" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Apr 26</text>
+                <text x="104" y="51" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Today</text>
+              </svg>
+            </div>
+            <div style="display:flex;justify-content:center;gap:4px;margin-bottom:5px;"><div style="width:5px;height:5px;border-radius:50%;background:#3D5470;"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(245,242,236,0.2);"></div></div>
+            <div class="u-sl">Body composition</div>
+            <div style="display:flex;gap:2px;margin-bottom:4px;">
+              <div style="flex:1;background:#3D5470;border-radius:2px;padding:3px 2px;font-size:6px;text-align:center;color:#fff;font-family:'Courier Prime',monospace;">Weight</div>
+              <div style="flex:1;background:rgba(245,242,236,0.06);border-radius:2px;padding:3px 2px;font-size:6px;text-align:center;color:#9C9890;font-family:'Courier Prime',monospace;">Fat</div>
+              <div style="flex:1;background:rgba(245,242,236,0.06);border-radius:2px;padding:3px 2px;font-size:6px;text-align:center;color:#9C9890;font-family:'Courier Prime',monospace;">Lean</div>
+            </div>
+            <div style="background:rgba(245,242,236,0.03);border-radius:3px;padding:5px 5px 3px;">
+              <svg width="100%" height="44" viewBox="0 0 130 44">
+                <line x1="0" y1="32" x2="130" y2="32" stroke="rgba(245,242,236,0.05)" stroke-width="0.5"/>
+                <line x1="0" y1="16" x2="130" y2="16" stroke="rgba(245,242,236,0.05)" stroke-width="0.5"/>
+                <polyline points="0,24 18,26 36,22 54,20 72,17 90,19 108,16 130,20" fill="none" stroke="#4AAA6A" stroke-width="1.5" stroke-linecap="round"/>
+                <polyline points="0,24 8,28 16,20 24,26 32,22 40,24 48,18 56,22 64,20 72,17 80,22 88,18 96,20 104,16 112,20 120,18 130,22" fill="none" stroke="rgba(74,170,106,0.3)" stroke-width="0.8" stroke-dasharray="2,1"/>
+                <text x="1" y="43" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Jan 26</text>
+                <text x="96" y="43" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">May 26</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <!-- Callouts -->
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:88px;line-height:1.4;right:-96px;top:62px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">Your year, building day by day</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;right:8px;top:78px;"></div>
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:88px;line-height:1.4;right:-96px;top:100px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">The gap to close</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;right:8px;top:68px;"></div>
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:88px;line-height:1.4;right:-96px;bottom:24px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">Weight, fat, lean — always colour-coded</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;right:8px;bottom:40px;"></div>
       </div>
+      <div class="screen-name">Graphs</div>
+      <div class="screen-desc">Your trajectory vs where you need to be.</div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="screen-col">
+      <div class="phone-wrap" style="position:relative;">
+        <div class="phone-mock">
+          <div class="pm-notch"><div class="pm-pill"></div></div>
+          <div class="pm-sc">
+            <div class="u-hdr"><div><div class="u-eyebrow">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">24 May<br>Sunday</div></div>
+            <div class="u-nav"><span>Log</span><span>Stats</span><span>Graphs</span><span class="u-act">History</span></div>
+            <div class="u-sl" style="margin-bottom:4px;">Recent entries</div>
+            <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">24 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Pickleball</div></div></div></div><div class="u-hmet">80.7kg<br>f 20.3 l 57.3</div></div>
+            <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">23 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#C07030;"></div><div class="u-hact">No Activity</div></div><div class="u-hbadge" style="background:rgba(192,112,48,0.12);color:#C07030;">Sick</div></div></div><div class="u-hmet">80.5kg</div></div>
+            <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">22 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Gym</div></div></div></div><div class="u-hmet">80.3kg<br>f 20.1 l 57.1</div></div>
+            <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">21 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#2A5AA0;"></div><div class="u-hact">No Activity</div></div><div class="u-hbadge" style="background:rgba(42,90,160,0.12);color:#6A8AC8;">Holiday</div></div></div><div class="u-hmet">—</div></div>
+            <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">20 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Backyard Cricket</div></div></div></div><div class="u-hmet">80.6kg</div></div>
+            <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">19 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#9C9890;"></div><div class="u-hact">No Activity</div></div><div class="u-hbadge" style="background:rgba(156,152,144,0.12);color:#9C9890;">Rest</div></div></div><div class="u-hmet">80.4kg</div></div>
+            <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">18 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Walk</div></div></div></div><div class="u-hmet">80.8kg</div></div>
+            <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">17 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#C0392B;"></div><div class="u-hact">No Activity</div></div></div></div><div class="u-hmet">80.5kg</div></div>
+          </div>
+        </div>
+        <!-- Callouts -->
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:90px;line-height:1.4;left:-96px;top:52px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">Active day — blue dot</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;left:18px;top:62px;"></div>
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:90px;line-height:1.4;left:-96px;top:90px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">Sick, holiday, rest — all logged</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;left:18px;top:100px;"></div>
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:90px;line-height:1.4;left:-96px;top:130px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">Holiday doesn't break the habit</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;left:18px;top:140px;"></div>
+        <div style="position:absolute;background:#F5F2EC;color:#1A1814;font-family:'DM Mono',monospace;font-size:8px;padding:4px 7px;border-radius:3px;max-width:90px;line-height:1.4;left:-96px;bottom:38px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);">Your year, honestly recorded</div>
+        <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;left:18px;bottom:50px;"></div>
+      </div>
+      <div class="screen-name">History</div>
+      <div class="screen-desc">Every day has a colour. Your year in full.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── WHO IT'S FOR ── -->
+<section class="who">
+  <div class="who-inner">
+    <div class="sec-eyebrow">Who it's for</div>
+    <h2 class="who-h">Made for Anyone<br>Who Wants to<br>Get Moving.</h2>
+    <p class="who-body">Whether you're just starting out and trying to build the habit, or you've been active for years and want to stay consistent — get active. works for both. You set your own goal. You define what active means. A walk counts. A bike ride counts. A backyard cricket game counts. The app just wants to know: did you move today?</p>
+    <div class="who-gold">"You don't need to be an athlete to use this.<br>You just need to want to be someone who moves."</div>
+    <div class="pillars">
+      <div><div class="pil-num">01</div><div class="pil-h">Honest</div><div class="pil-b">You always know where you actually stand. No inflation. No sugar-coating. Just the number.</div></div>
+      <div><div class="pil-num">02</div><div class="pil-h">Minimal</div><div class="pil-b">Thirty seconds a day. No lengthy check-ins, no complicated flows. Log it and move on.</div></div>
+      <div><div class="pil-num">03</div><div class="pil-h">Long-term</div><div class="pil-b">Built around a year, not a day. One bad week doesn't reset anything. The habit compounds.</div></div>
     </div>
   </div>
 </section>
 
-<!-- ── MANIFESTO ───────────────────────────── -->
-<section class="manifesto">
-  <div class="manifesto-inner">
-    <div class="section-tag" style="justify-content:center;color:rgba(245,242,236,0.3);">The only rule</div>
-    <ul class="manifesto-lines">
-      <li>A 15-minute walk <em>counts.</em></li>
-      <li>A swim at lunch <em>counts.</em></li>
-      <li>Backyard cricket with the kids <em>counts.</em></li>
-      <li>A rest day you logged honestly <em>counts.</em></li>
-      <li class="accent">Showing up — in any form — <em>always counts.</em></li>
-    </ul>
-    <p style="font-family:var(--mono);font-size:12px;letter-spacing:0.08em;color:rgba(245,242,236,0.25);">
-      The only workout that doesn't count is the one you didn't log.
-    </p>
-  </div>
+<!-- ── BETA CTA ── -->
+<section class="betacta">
+  <div style="font-family:var(--mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;text-align:center;">Private beta</div>
+  <h2 class="beta-h">Start building<br>your days.</h2>
+  <p class="beta-sub">We're building this carefully with a small group of people. If you want in, leave your email. We'll set up your account and reach out personally with login details.</p>
+  <p class="beta-note">We review requests weekly.</p>
+  <form class="beta-form" id="beta-form" action="https://formspree.io/f/xykvpvbr" method="POST">
+    <input type="email" name="email" placeholder="your@email.com" required>
+    <button type="submit">Request access →</button>
+  </form>
+  <div class="beta-success" id="beta-success">You're on the list.<br>We'll send your login details within a day or two.</div>
+  <p class="beta-privacy">No spam. No newsletter. Just a message from us when we're ready for you.</p>
 </section>
 
-<!-- ── WAITLIST ─────────────────────────────── -->
-<section class="waitlist" id="waitlist">
-  <div class="waitlist-inner">
-    <div class="section-tag" style="justify-content:center;">Coming soon</div>
-    <h2 class="waitlist-title">Be first to<br><em style="font-style:italic;">get active.</em></h2>
-    <p class="waitlist-sub">
-      We're building something small, honest, and yours.<br>
-      Leave your email and you'll hear from us when it's ready.
-    </p>
-    <div id="form-wrap">
-      <div class="waitlist-form">
-        <input class="waitlist-input" type="email" id="email-input" placeholder="your@email.com">
-        <button class="waitlist-btn" onclick="joinWaitlist()">Join →</button>
-      </div>
-      <p class="waitlist-note">No spam. No newsletters. Just a single email when we're live.</p>
-    </div>
-    <div class="waitlist-success" id="success-msg">
-      You're on the list. We'll be in touch.
-    </div>
-  </div>
-</section>
-
-<!-- ── FOOTER ──────────────────────────────── -->
-<footer class="footer">
-  <div class="footer-logo">get active. — just show up.</div>
-  <div class="footer-note">© 2026 · getactive.app · Built with intention</div>
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="foot-logo">get active<span>.</span></div>
+  <div class="foot-tag">Built By Days.</div>
+  <a class="foot-email" href="mailto:nea.builds@gmail.com">nea.builds@gmail.com</a>
+  <div class="foot-right">Private beta · 2026</div>
 </footer>
 
 <script>
-function joinWaitlist() {
-  const email = document.getElementById('email-input').value.trim();
-  if (!email || !email.includes('@')) {
-    document.getElementById('email-input').style.borderColor = '#C05A40';
-    return;
-  }
-  document.getElementById('form-wrap').style.display = 'none';
-  document.getElementById('success-msg').style.display = 'block';
-}
-
-// Intersection observer for fade-in on scroll
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.style.opacity = '1';
-      e.target.style.transform = 'translateY(0)';
+function handleForm(formId, successId) {
+  const form = document.getElementById(formId);
+  const success = document.getElementById(successId);
+  if (!form || !success) return;
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('button');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        const note = form.nextElementSibling;
+        if (note && note.classList && note.classList.contains('form-note')) note.style.display = 'none';
+        success.style.display = 'block';
+      } else {
+        btn.textContent = 'Request access →';
+        btn.disabled = false;
+        alert('Something went wrong — please email nea.builds@gmail.com directly.');
+      }
+    } catch(err) {
+      btn.textContent = 'Request access →';
+      btn.disabled = false;
+      alert('Something went wrong — please email nea.builds@gmail.com directly.');
     }
   });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.feature-card, .how-step, .manifesto-lines li').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  observer.observe(el);
-});
+}
+handleForm('hero-form', 'hero-success');
+handleForm('beta-form', 'beta-success');
 </script>
 </body>
 </html>
