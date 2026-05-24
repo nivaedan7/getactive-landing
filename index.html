@@ -149,7 +149,7 @@ nav{
 .phil-b{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.85;letter-spacing:0.02em;}
 
 /* ── SCREENS SECTION ── */
-.screens{padding:100px 80px;background:var(--ink);overflow:visible;}
+.screens{padding:100px 60px;background:var(--ink);overflow:visible;}
 .sec-eyebrow{
   font-family:var(--mono);font-size:10px;letter-spacing:0.2em;
   text-transform:uppercase;color:var(--gold);
@@ -164,10 +164,16 @@ nav{
 .sec-sub{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:72px;letter-spacing:0.04em;}
 
 /* Phone mockup system */
-.screens-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;align-items:start;padding:0 100px;}
+.screens-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:48px;
+  align-items:start;
+  padding:0;
+}
 .screen-col{}
-.screen-col:nth-child(even){margin-top:48px;}
-.phone-wrap{position:relative;margin-bottom:20px;}
+.screen-col:nth-child(even){margin-top:60px;}
+.phone-wrap{position:relative;margin-bottom:16px;}
 .phone-mock{
   width:100%;background:#1A1814;
   border-radius:22px;
@@ -182,7 +188,21 @@ nav{
   font-family:var(--serif);font-weight:700;font-size:15px;
   color:var(--cream);margin-bottom:6px;
 }
-.screen-desc{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:0;}
+.screen-desc{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:10px;}
+.ann-list{list-style:none;padding:0;margin:0;}
+.ann-list li{
+  font-family:var(--mono);font-size:10px;color:var(--muted);
+  line-height:1.6;padding:4px 0 4px 14px;
+  border-left:1.5px solid var(--gold);
+  margin-bottom:5px;position:relative;
+}
+.ann-list li::before{
+  content:'';position:absolute;
+  left:-4px;top:10px;
+  width:6px;height:6px;
+  border-radius:50%;background:var(--gold);
+}
+.ann-list li strong{color:var(--cream);font-weight:500;}
 
 /* Callout annotation system */
 .callout-box{
@@ -352,11 +372,10 @@ footer{
 .hero-right{animation:fadeUp 0.7s 0.2s ease both;}
 
 /* ── RESPONSIVE ── */
-/* Hide callouts on smaller screens */
-@media(max-width:1200px){
-  .callout-box,[style*="position:absolute"][style*="font-family:'DM Mono'"]{display:none !important;}
-  .screens-grid{padding:0 20px;}
-}
+/* Hide absolute callouts on all sizes — using ann-list instead */
+[style*="position:absolute"][style*="font-family:'DM Mono'"],
+[style*="position:absolute"][style*='font-family:"DM Mono"'],
+[style*="position:absolute"][style*="width:5px"][style*="height:5px"][style*="background:#C8A96E"]{display:none !important;}
 @media(max-width:1000px){
   nav{padding:16px 24px;}
   .hero{grid-template-columns:1fr;padding:110px 28px 70px;gap:50px;min-height:auto;}
@@ -367,13 +386,15 @@ footer{
   .phil-grid{grid-template-columns:1fr;gap:40px;}
   .screens{padding:60px 0 70px;}
   .screens-grid{
-    display:flex;overflow-x:auto;gap:20px;
+    display:flex;overflow-x:auto;gap:24px;
     scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
-    padding:0 28px 24px;
+    padding:0 28px 32px;
+    /* Show peek of next card */
   }
-  .screen-col{min-width:70vw;scroll-snap-align:start;flex-shrink:0;}
+  .screen-col{min-width:72vw;scroll-snap-align:start;flex-shrink:0;}
   .screen-col:nth-child(even){margin-top:0;}
+  .ann-list li{font-size:10px;}
   .who{padding:70px 28px;}
   .who-inner{max-width:100%;}
   .pillars{grid-template-columns:1fr;gap:28px;}
@@ -512,7 +533,12 @@ footer{
         <div style="position:absolute;width:5px;height:5px;background:#C8A96E;border-radius:50%;right:8px;bottom:26px;"></div>
       </div>
       <div class="screen-name">Log</div>
-      <div class="screen-desc">Pick what you did. Anything counts. Save. Done.</div>
+      <div class="screen-desc">Pick what you did. Anything counts.</div>
+      <ul class="ann-list">
+        <li><strong>90 day streak 🔥</strong> — the habit building in real time</li>
+        <li><strong>Rest days count</strong> — Sick, Holiday, Rest all logged</li>
+        <li><strong>Done in 30 seconds</strong> — that's the whole thing</li>
+      </ul>
     </div>
 
     <!-- STATS -->
@@ -554,6 +580,11 @@ footer{
       </div>
       <div class="screen-name">Stats</div>
       <div class="screen-desc">Your honest number and where you stand.</div>
+      <ul class="ann-list">
+        <li><strong>73 active days</strong> — your real number, never inflated</li>
+        <li><strong>The bar</strong> — where you are vs where you want to be</li>
+        <li><strong>7-day trends</strong> — weight, fat, lean, colour-coded</li>
+      </ul>
     </div>
 
     <!-- GRAPHS -->
@@ -609,6 +640,11 @@ footer{
       </div>
       <div class="screen-name">Graphs</div>
       <div class="screen-desc">Your trajectory vs where you need to be.</div>
+      <ul class="ann-list">
+        <li><strong>Your line</strong> — cumulative active days building over time</li>
+        <li><strong>On-pace line</strong> — the gap you're closing</li>
+        <li><strong>Body comp</strong> — weight, fat, lean always colour-coded</li>
+      </ul>
     </div>
 
     <!-- HISTORY -->
@@ -642,6 +678,11 @@ footer{
       </div>
       <div class="screen-name">History</div>
       <div class="screen-desc">Every day has a colour. Your year in full.</div>
+      <ul class="ann-list">
+        <li><strong>Blue dot</strong> — active day logged</li>
+        <li><strong>Sick, holiday, rest</strong> — no day left blank</li>
+        <li><strong>Holiday doesn't break the habit</strong> — it just gets a different colour</li>
+      </ul>
     </div>
 
   </div>
