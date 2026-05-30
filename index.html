@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>get active. — Built By Days.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -13,10 +15,10 @@
   --ink2:#222018;
   --cream:#F5F2EC;
   --cream2:#EDE9E0;
+  --cream3:#E4E0D8;
   --muted:#9C9890;
   --gold:#C8A96E;
   --gold2:#D4B97E;
-  --slate:#3D5470;
   --mono:'DM Mono',monospace;
   --serif:'Courier Prime',monospace;
 }
@@ -32,243 +34,218 @@ nav{
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(245,242,236,0.06);
 }
-.nav-logo{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--cream);letter-spacing:-0.02em;}
+.nav-logo{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--cream);letter-spacing:-0.02em;text-decoration:none;}
 .nav-logo span{color:var(--gold);}
 .nav-right{display:flex;align-items:center;gap:32px;}
 .nav-contact{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
 .nav-contact:hover{color:var(--gold);}
-.nav-cta{
-  font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
-  background:var(--gold);color:var(--ink);padding:8px 16px;border-radius:3px;
-  text-decoration:none;font-weight:500;transition:background 0.15s;
-}
+.nav-cta{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;background:var(--gold);color:var(--ink);padding:9px 18px;border-radius:3px;text-decoration:none;font-weight:500;transition:background 0.15s;}
 .nav-cta:hover{background:var(--gold2);}
 
-/* ══════════════════════════════
-   SECTION 1 — DARK HERO
-══════════════════════════════ */
+/* ══ SECTION 1 — DARK HERO ══ */
 .hero{
   min-height:100vh;
   display:grid;grid-template-columns:1fr 1fr;
   gap:60px;align-items:center;
-  padding:130px 80px 100px;
-  background:var(--ink);
+  padding:140px 80px 100px;
   position:relative;overflow:hidden;
 }
 .hero::before{
-  content:'';position:absolute;
-  top:-400px;right:-200px;width:800px;height:800px;
+  content:'';position:absolute;top:-300px;right:-200px;
+  width:700px;height:700px;
   background:radial-gradient(circle,rgba(61,84,112,0.1) 0%,transparent 65%);
   pointer-events:none;
 }
-/* Left */
-.hero-left{}
+.hero::after{
+  content:'';position:absolute;bottom:-200px;left:-100px;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(200,169,110,0.05) 0%,transparent 65%);
+  pointer-events:none;
+}
+
+/* Hero left */
 .hero-overline{
   font-family:var(--mono);font-size:10px;letter-spacing:0.22em;
   text-transform:uppercase;color:var(--gold);
-  margin-bottom:20px;display:flex;align-items:center;gap:10px;
+  margin-bottom:20px;display:flex;align-items:center;gap:12px;
 }
-.hero-overline::before{content:'';width:24px;height:1px;background:var(--gold);display:block;}
+.hero-overline::before{content:'';width:24px;height:1px;background:var(--gold);display:block;flex-shrink:0;}
 .hero-brand{
   font-family:var(--serif);font-weight:700;
-  font-size:clamp(64px,7vw,108px);
-  color:var(--cream);letter-spacing:-0.04em;line-height:0.95;
-  margin-bottom:16px;
+  font-size:clamp(56px,6.5vw,96px);
+  color:var(--cream);letter-spacing:-0.04em;line-height:0.92;
+  margin-bottom:10px;
 }
 .hero-brand span{color:var(--gold);}
 .hero-tagline{
-  font-family:var(--mono);font-size:11px;letter-spacing:0.18em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:40px;
+  font-family:var(--mono);font-size:11px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:36px;
 }
-.hero-hook{
-  font-family:var(--serif);
-  font-size:clamp(20px,2.2vw,28px);
-  color:var(--cream);line-height:1.5;
-  margin-bottom:48px;max-width:500px;
-  border-left:3px solid var(--gold);
-  padding-left:20px;
+.hero-headline{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(22px,2.4vw,32px);
+  color:var(--cream);line-height:1.25;
+  letter-spacing:-0.01em;
+  margin-bottom:14px;max-width:480px;
 }
-.hero-hook em{color:var(--gold);font-style:normal;}
-/* Form */
-.hero-form-wrap{margin-bottom:14px;}
-.hero-form{display:flex;gap:0;max-width:460px;}
+.hero-subline{
+  font-family:var(--serif);font-size:clamp(16px,1.6vw,20px);
+  color:rgba(245,242,236,0.55);line-height:1.4;
+  margin-bottom:40px;max-width:440px;
+  font-style:italic;
+}
+.beta-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10px;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);
+  border:1px solid rgba(245,242,236,0.1);
+  border-radius:20px;padding:6px 14px;margin-bottom:24px;
+}
+.beta-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hero-form{display:flex;gap:0;max-width:460px;margin-bottom:10px;}
 .hero-form input{
   flex:1;padding:15px 18px;
   background:rgba(245,242,236,0.06);
-  border:1px solid rgba(245,242,236,0.12);
-  border-right:none;border-radius:4px 0 0 4px;
-  font-family:var(--mono);font-size:13px;color:var(--cream);
+  border:1px solid rgba(245,242,236,0.12);border-right:none;
+  border-radius:4px 0 0 4px;
+  font-family:var(--mono);font-size:12px;color:var(--cream);
   outline:none;transition:border-color 0.2s;
 }
 .hero-form input::placeholder{color:var(--muted);}
 .hero-form input:focus{border-color:rgba(200,169,110,0.5);}
 .hero-form button{
-  padding:15px 24px;background:var(--gold);color:var(--ink);
+  padding:15px 22px;background:var(--gold);color:var(--ink);
   border:none;border-radius:0 4px 4px 0;
-  font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
+  font-family:var(--mono);font-size:10px;letter-spacing:0.12em;
   text-transform:uppercase;cursor:pointer;font-weight:500;white-space:nowrap;
   transition:background 0.15s;
 }
 .hero-form button:hover{background:var(--gold2);}
-.hero-form-note{font-size:11px;color:var(--muted);line-height:1.6;max-width:400px;}
-.hero-form-note em{color:rgba(200,169,110,0.7);font-style:normal;}
-.hero-success{display:none;font-family:var(--serif);font-size:17px;color:var(--gold);line-height:1.6;margin-top:8px;}
-.beta-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  font-family:var(--mono);font-size:10px;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--muted);
-  border:1px solid rgba(245,242,236,0.1);
-  border-radius:20px;padding:5px 12px;margin-bottom:28px;
-}
-.beta-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.form-note{font-size:10.5px;color:var(--muted);line-height:1.6;max-width:400px;}
+.form-note em{color:rgba(200,169,110,0.65);font-style:normal;}
+.hero-success{display:none;font-family:var(--serif);font-size:17px;color:var(--gold);margin-top:8px;line-height:1.6;}
 
-/* Right — phone */
-.hero-right{
-  display:flex;justify-content:center;align-items:center;
-  position:relative;
-}
+/* Hero right — phone */
+.hero-right{display:flex;justify-content:center;align-items:center;}
 .phone-hero{
-  width:240px;
-  background:#141210;
+  width:250px;background:#141210;
   border-radius:36px;
-  border:1.5px solid rgba(245,242,236,0.12);
+  border:1.5px solid rgba(245,242,236,0.1);
   overflow:hidden;
   box-shadow:0 48px 80px rgba(0,0,0,0.7),0 0 0 1px rgba(245,242,236,0.04);
-  transform:rotate(3deg);
+  transform:rotate(2.5deg);
   transition:transform 0.4s ease;
+  flex-shrink:0;
 }
 .phone-hero:hover{transform:rotate(0);}
-.ph-notch{height:24px;background:#141210;display:flex;align-items:center;justify-content:center;}
-.ph-pill{width:52px;height:8px;background:#0a0908;border-radius:8px;}
+.ph-notch{height:22px;background:#141210;display:flex;align-items:center;justify-content:center;}
+.ph-pill{width:50px;height:8px;background:#0a0908;border-radius:8px;}
 
-/* ══════════════════════════════
-   SECTION 2 — CREAM "WHAT IS IT"
-══════════════════════════════ */
-.what{
-  background:var(--cream);
-  padding:100px 80px;
-}
-.what-kicker{
+/* ══ SECTION 2 — CREAM STORY ══ */
+.story{background:var(--cream);padding:100px 80px;}
+.story-inner{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start;max-width:1100px;}
+.story-left{}
+.story-kicker{
   font-family:var(--mono);font-size:10px;letter-spacing:0.2em;
-  text-transform:uppercase;color:var(--muted);
-  margin-bottom:20px;display:flex;align-items:center;gap:10px;
-}
-.what-kicker::before{content:'';width:20px;height:1px;background:var(--gold);display:block;}
-.what-headline{
-  font-family:var(--serif);font-weight:700;
-  font-size:clamp(32px,4vw,56px);
-  color:var(--ink);letter-spacing:-0.03em;line-height:1.1;
-  margin-bottom:60px;max-width:700px;
-}
-.what-headline span{color:var(--gold);}
-.what-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;}
-.what-item{}
-.what-num{
-  font-family:var(--mono);font-size:11px;color:var(--gold);
-  letter-spacing:0.1em;margin-bottom:14px;
-}
-.what-h{
-  font-family:var(--serif);font-weight:700;
-  font-size:clamp(18px,2vw,24px);
-  color:var(--ink);margin-bottom:14px;
-  line-height:1.2;letter-spacing:-0.01em;
-}
-.what-b{
-  font-family:var(--mono);font-size:13px;
-  color:#5C5850;line-height:1.85;
-}
-
-/* ══════════════════════════════
-   SECTION 3 — CREAM SCREENS
-══════════════════════════════ */
-.screens{
-  background:var(--cream2);
-  padding:100px 80px;
-  border-top:1px solid rgba(26,24,20,0.08);
-}
-.screens-kicker{
-  font-family:var(--mono);font-size:10px;letter-spacing:0.2em;
-  text-transform:uppercase;color:var(--muted);
+  text-transform:uppercase;color:var(--gold);
   margin-bottom:16px;display:flex;align-items:center;gap:10px;
 }
-.screens-kicker::before{content:'';width:20px;height:1px;background:var(--gold);display:block;}
-.screens-headline{
+.story-kicker::before{content:'';width:20px;height:1px;background:var(--gold);display:block;flex-shrink:0;}
+.story-headline{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(28px,3vw,42px);
+  color:var(--ink);letter-spacing:-0.02em;line-height:1.15;
+  margin-bottom:28px;
+}
+.story-body{
+  font-family:var(--serif);font-size:clamp(15px,1.4vw,18px);
+  color:#3A3630;line-height:1.85;
+}
+.story-body p{margin-bottom:18px;}
+.story-body p:last-child{margin-bottom:0;}
+.story-pull{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(20px,2.2vw,28px);
+  color:var(--ink);line-height:1.35;letter-spacing:-0.01em;
+  border-left:3px solid var(--gold);
+  padding-left:24px;margin-top:8px;
+}
+
+/* ══ SECTION 3 — CREAM WHAT IS IT ══ */
+.what{background:var(--cream2);padding:100px 80px;border-top:1px solid rgba(26,24,20,0.08);}
+.what-kicker{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.what-kicker::before{content:'';width:20px;height:1px;background:var(--gold);display:block;flex-shrink:0;}
+.what-headline{
   font-family:var(--serif);font-weight:700;
   font-size:clamp(28px,3.5vw,48px);
   color:var(--ink);letter-spacing:-0.03em;line-height:1.1;
-  margin-bottom:8px;
+  margin-bottom:60px;max-width:700px;
+}
+.what-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;}
+.what-num{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:0.1em;margin-bottom:14px;}
+.what-h{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(18px,1.8vw,22px);
+  color:var(--ink);margin-bottom:14px;line-height:1.25;letter-spacing:-0.01em;
+}
+.what-b{font-family:var(--mono);font-size:13px;color:#5C5850;line-height:1.85;}
+
+/* ══ SECTION 4 — CREAM SCREENS ══ */
+.screens{background:var(--cream3);padding:100px 80px;border-top:1px solid rgba(26,24,20,0.08);}
+.screens-kicker{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:14px;display:flex;align-items:center;gap:10px;
+}
+.screens-kicker::before{content:'';width:20px;height:1px;background:var(--gold);display:block;flex-shrink:0;}
+.screens-h{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(28px,3.5vw,48px);
+  color:var(--ink);letter-spacing:-0.03em;line-height:1.1;margin-bottom:8px;
 }
 .screens-sub{
-  font-family:var(--mono);font-size:13px;
-  color:#5C5850;margin-bottom:72px;
+  font-family:var(--mono);font-size:12px;color:#5C5850;
+  margin-bottom:70px;letter-spacing:0.03em;
 }
-/* Two large phones side by side */
-.phones-row{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:60px;align-items:start;
-  margin-bottom:60px;
-}
-.phone-col{}
-.phone-col:nth-child(2){margin-top:60px;}
+.phones-row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-bottom:60px;}
+.phone-col:nth-child(2){margin-top:56px;}
 .phone-large{
-  width:100%;
-  background:#1A1814;
-  border-radius:28px;
-  border:1.5px solid rgba(26,24,20,0.15);
+  width:100%;background:#1A1814;
+  border-radius:26px;border:1.5px solid rgba(26,24,20,0.15);
   overflow:hidden;
-  box-shadow:0 32px 64px rgba(26,24,20,0.25);
-  margin-bottom:24px;
+  box-shadow:0 28px 56px rgba(26,24,20,0.2);
+  margin-bottom:22px;
 }
-.pl-notch{height:20px;background:#1A1814;display:flex;align-items:center;justify-content:center;}
-.pl-pill{width:46px;height:7px;background:#0a0908;border-radius:7px;}
-.pl-sc{padding:10px 12px 16px;}
-.phone-label{
-  font-family:var(--serif);font-weight:700;
-  font-size:18px;color:var(--ink);margin-bottom:6px;
-}
-.phone-desc{
-  font-family:var(--mono);font-size:12px;
-  color:#5C5850;line-height:1.75;margin-bottom:16px;
-}
-/* Annotation list on light bg */
+.pl-notch{height:18px;background:#1A1814;display:flex;align-items:center;justify-content:center;}
+.pl-pill{width:44px;height:7px;background:#0a0908;border-radius:7px;}
+.pl-sc{padding:9px 11px 14px;}
+.phone-label{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--ink);margin-bottom:6px;}
+.phone-desc{font-family:var(--mono);font-size:12px;color:#5C5850;line-height:1.75;margin-bottom:14px;}
 .ann-list{list-style:none;padding:0;margin:0;}
 .ann-list li{
-  font-family:var(--mono);font-size:11.5px;
-  color:#5C5850;line-height:1.65;
-  padding:6px 0 6px 16px;
-  border-left:2px solid var(--gold);
-  margin-bottom:6px;position:relative;
+  font-family:var(--mono);font-size:11.5px;color:#5C5850;
+  line-height:1.65;padding:6px 0 6px 16px;
+  border-left:2px solid var(--gold);margin-bottom:6px;position:relative;
 }
 .ann-list li::before{
-  content:'';position:absolute;
-  left:-4.5px;top:12px;
-  width:7px;height:7px;
-  border-radius:50%;background:var(--gold);
+  content:'';position:absolute;left:-4.5px;top:12px;
+  width:7px;height:7px;border-radius:50%;background:var(--gold);
 }
 .ann-list li strong{color:var(--ink);font-weight:500;}
 
-/* Bottom 2 phones row */
-.phones-row-2{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:60px;align-items:start;
-}
-.phone-col-2{}
-.phone-col-2:nth-child(1){margin-top:0;}
-.phone-col-2:nth-child(2){margin-top:40px;}
-
-/* ══════════════════════════════
-   SECTION 4 — DARK CTA
-══════════════════════════════ */
+/* ══ SECTION 5 — DARK CTA ══ */
 .cta{
-  background:var(--ink);
-  padding:120px 80px;
-  text-align:center;
-  position:relative;overflow:hidden;
+  background:var(--ink);padding:120px 80px;
+  text-align:center;position:relative;overflow:hidden;
 }
 .cta::before{
-  content:'';position:absolute;
-  top:-300px;left:50%;transform:translateX(-50%);
+  content:'';position:absolute;top:-300px;left:50%;transform:translateX(-50%);
   width:800px;height:600px;
   background:radial-gradient(circle,rgba(200,169,110,0.07) 0%,transparent 65%);
   pointer-events:none;
@@ -277,37 +254,36 @@ nav{
   font-family:var(--serif);font-weight:700;
   font-size:clamp(36px,5vw,72px);
   color:var(--cream);letter-spacing:-0.03em;
-  line-height:1.1;margin-bottom:12px;
+  line-height:1.05;margin-bottom:16px;
 }
 .cta-q span{color:var(--gold);}
 .cta-sub{
-  font-family:var(--mono);font-size:14px;
+  font-family:var(--mono);font-size:13.5px;
   color:var(--muted);margin-bottom:8px;
-  line-height:1.8;max-width:480px;
+  line-height:1.85;max-width:480px;
   margin-left:auto;margin-right:auto;
 }
-.cta-note{font-size:11px;color:rgba(156,152,144,0.7);margin-bottom:44px;letter-spacing:0.03em;}
+.cta-note{font-size:11px;color:rgba(156,152,144,0.6);margin-bottom:44px;letter-spacing:0.03em;}
 .cta-form{display:flex;gap:0;max-width:460px;margin:0 auto 16px;}
 .cta-form input{
   flex:1;padding:17px 20px;
   background:rgba(245,242,236,0.06);
-  border:1px solid rgba(245,242,236,0.12);
-  border-right:none;border-radius:4px 0 0 4px;
-  font-family:var(--mono);font-size:13px;color:var(--cream);
+  border:1px solid rgba(245,242,236,0.12);border-right:none;
+  border-radius:4px 0 0 4px;
+  font-family:var(--mono);font-size:12px;color:var(--cream);
   outline:none;transition:border-color 0.2s;
 }
 .cta-form input::placeholder{color:var(--muted);}
 .cta-form input:focus{border-color:rgba(200,169,110,0.5);}
 .cta-form button{
-  padding:17px 26px;background:var(--cream);color:var(--ink);
+  padding:17px 24px;background:var(--cream);color:var(--ink);
   border:none;border-radius:0 4px 4px 0;
-  font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
-  text-transform:uppercase;cursor:pointer;font-weight:500;
-  transition:background 0.15s;
+  font-family:var(--mono);font-size:10px;letter-spacing:0.12em;
+  text-transform:uppercase;cursor:pointer;font-weight:500;transition:background 0.15s;
 }
 .cta-form button:hover{background:var(--cream2);}
-.cta-success{display:none;font-family:var(--serif);font-size:17px;color:var(--gold);line-height:1.7;margin-top:16px;}
-.cta-privacy{font-size:10px;color:rgba(156,152,144,0.5);letter-spacing:0.04em;}
+.cta-success{display:none;font-family:var(--serif);font-size:17px;color:var(--gold);margin-top:16px;line-height:1.6;}
+.cta-privacy{font-size:10px;color:rgba(156,152,144,0.45);letter-spacing:0.04em;}
 
 /* ── FOOTER ── */
 footer{
@@ -322,7 +298,7 @@ footer{
 .foot-email:hover{color:var(--gold);}
 .foot-right{font-family:var(--mono);font-size:10px;color:rgba(156,152,144,0.4);}
 
-/* ── APP UI MICRO ELEMENTS ── */
+/* ── APP UI ELEMENTS ── */
 .u-ey{font-size:5.5px;color:#9C9890;letter-spacing:0.1em;text-transform:uppercase;}
 .u-logo{font-size:10px;font-weight:700;color:#F5F2EC;font-family:'Courier Prime',monospace;letter-spacing:-0.02em;}
 .u-logo-dot{color:#C8A96E;}
@@ -334,48 +310,45 @@ footer{
 .u-sl{font-size:5.5px;letter-spacing:0.1em;text-transform:uppercase;color:#9C9890;margin-bottom:4px;}
 .u-hc{border-radius:5px;padding:9px 10px 8px;margin-bottom:5px;}
 .u-hcey{font-size:5px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:2px;}
-.u-hcnum{font-size:32px;font-weight:700;color:#fff;font-family:'Courier Prime',monospace;line-height:1;margin-bottom:3px;}
-.u-hcnum span{font-size:12px;opacity:0.2;font-weight:400;}
-.u-hcpace{font-size:8px;font-weight:700;color:#fff;margin-bottom:1px;}
-.u-hcsub{font-size:6px;color:rgba(255,255,255,0.6);}
-.u-pills{display:flex;gap:2px;margin-bottom:5px;}
-.u-pi{flex:1;padding:3px 1px;border-radius:2px;font-size:6px;text-align:center;background:rgba(245,242,236,0.05);color:rgba(245,242,236,0.25);border:1px solid rgba(245,242,236,0.07);font-family:'Courier Prime',monospace;}
+.u-hcnum{font-size:30px;font-weight:700;color:#fff;font-family:'Courier Prime',monospace;line-height:1;margin-bottom:3px;}
+.u-hcnum span{font-size:11px;opacity:0.2;font-weight:400;}
+.u-hcpace{font-size:7.5px;font-weight:700;color:#fff;margin-bottom:1px;}
+.u-hcsub{font-size:5.5px;color:rgba(255,255,255,0.6);}
+.u-pills{display:flex;gap:2px;margin-bottom:4px;}
+.u-pi{flex:1;padding:3px 1px;border-radius:2px;font-size:5.5px;text-align:center;background:rgba(245,242,236,0.05);color:rgba(245,242,236,0.25);border:1px solid rgba(245,242,236,0.07);font-family:'Courier Prime',monospace;}
 .u-pi-on{background:#3D5470;color:#fff;border-color:#3D5470;}
 .u-bar{height:5px;border-radius:3px;overflow:hidden;margin-bottom:2px;}
 .u-barleg{display:flex;gap:6px;margin-bottom:6px;}
 .u-barleg span{font-size:5px;color:#9C9890;display:flex;align-items:center;gap:2px;}
 .u-sw{display:inline-block;width:6px;height:3px;border-radius:1px;}
-.u-mg{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:6px;}
-.u-mc{background:rgba(245,242,236,0.05);border-radius:3px;padding:5px 5px;}
+.u-mg{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:4px;}
+.u-mc{background:rgba(245,242,236,0.05);border-radius:3px;padding:5px;}
 .u-mcl{font-size:5px;letter-spacing:0.06em;text-transform:uppercase;color:#9C9890;margin-bottom:2px;}
-.u-mcv{font-size:14px;font-weight:500;font-family:'Courier Prime',monospace;line-height:1;}
+.u-mcv{font-size:13px;font-weight:500;font-family:'Courier Prime',monospace;line-height:1;}
 .u-mcu{font-size:5px;color:#9C9890;margin-top:1px;}
-.u-mct{font-size:5.5px;margin-top:2px;}
-/* Log screen elements */
-.u-streak{font-size:7px;color:#C8A96E;margin-bottom:6px;font-family:'Courier Prime',monospace;}
-.u-today{font-size:10px;font-weight:700;color:#F5F2EC;margin-bottom:1px;font-family:'Courier Prime',monospace;}
+.u-mct{font-size:5px;margin-top:1px;}
+.u-today{font-size:9px;font-weight:700;color:#F5F2EC;margin-bottom:1px;font-family:'Courier Prime',monospace;}
+.u-streak{font-size:6.5px;color:#C8A96E;margin-bottom:5px;}
 .u-chips{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:4px;}
-.u-chip{background:rgba(245,242,236,0.06);border:1px solid rgba(245,242,236,0.09);border-radius:3px;padding:6px 3px;font-size:6.5px;color:#A8A4A0;text-align:center;font-family:'Courier Prime',monospace;}
+.u-chip{background:rgba(245,242,236,0.06);border:1px solid rgba(245,242,236,0.08);border-radius:3px;padding:5px 3px;font-size:6px;color:#A8A4A0;text-align:center;font-family:'Courier Prime',monospace;}
 .u-chip-full{grid-column:span 2;}
 .u-chip-sel{background:#8B3A2A;color:#F5F2EC;border-color:#8B3A2A;}
 .u-subchips{display:flex;gap:3px;margin-bottom:5px;}
-.u-sc-s{flex:1;padding:4px 2px;border-radius:2px;font-size:6px;text-align:center;background:rgba(192,112,48,0.15);color:#C07030;border:1px solid rgba(192,112,48,0.3);}
-.u-sc-h{flex:1;padding:4px 2px;border-radius:2px;font-size:6px;text-align:center;background:rgba(42,90,160,0.15);color:#6A8AC8;border:1px solid rgba(42,90,160,0.25);}
-.u-sc-r{flex:1;padding:4px 2px;border-radius:2px;font-size:6px;text-align:center;background:rgba(156,152,144,0.15);color:#9C9890;border:1px solid rgba(156,152,144,0.2);}
+.u-sc-s{flex:1;padding:4px 2px;border-radius:2px;font-size:5.5px;text-align:center;background:rgba(192,112,48,0.15);color:#C07030;border:1px solid rgba(192,112,48,0.3);}
+.u-sc-h{flex:1;padding:4px 2px;border-radius:2px;font-size:5.5px;text-align:center;background:rgba(42,90,160,0.15);color:#6A8AC8;border:1px solid rgba(42,90,160,0.25);}
+.u-sc-r{flex:1;padding:4px 2px;border-radius:2px;font-size:5.5px;text-align:center;background:rgba(156,152,144,0.15);color:#9C9890;border:1px solid rgba(156,152,144,0.2);}
 .u-bmlabel{font-size:5.5px;letter-spacing:0.1em;text-transform:uppercase;color:#9C9890;margin-bottom:3px;}
 .u-bmrow{display:flex;gap:3px;margin-bottom:4px;}
 .u-bmi{flex:1;background:rgba(245,242,236,0.06);border:1px solid rgba(245,242,236,0.09);border-radius:3px;padding:5px 2px;text-align:center;font-size:7px;color:#6C6860;font-family:'Courier Prime',monospace;}
 .u-dietrow{display:flex;gap:2px;margin-bottom:7px;}
 .u-db{flex:1;background:rgba(245,242,236,0.06);border:1px solid rgba(245,242,236,0.08);border-radius:2px;padding:5px 2px;text-align:center;font-size:7px;color:#A8A4A0;font-family:'Courier Prime',monospace;}
 .u-save{background:#F5F2EC;border-radius:4px;padding:8px;text-align:center;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:#1A1814;font-family:'Courier Prime',monospace;font-weight:700;}
-/* History */
 .u-hrow{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;border-bottom:0.5px solid rgba(245,242,236,0.06);}
 .u-hdate{font-size:6px;color:#9C9890;min-width:28px;font-family:'Courier Prime',monospace;}
 .u-hdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:2px;}
 .u-hact{font-size:7px;color:#F5F2EC;font-family:'Courier Prime',monospace;}
 .u-hbadge{font-size:5px;padding:1px 4px;border-radius:2px;margin-top:2px;display:inline-block;}
 .u-hmet{font-size:5.5px;color:#9C9890;text-align:right;font-family:'Courier Prime',monospace;line-height:1.4;}
-/* Graphs */
 .u-ga{background:rgba(245,242,236,0.03);border-radius:3px;padding:6px 6px 4px;margin-bottom:5px;}
 
 /* ── ANIMATIONS ── */
@@ -383,11 +356,12 @@ footer{
 .hero-overline{animation:fadeUp 0.5s 0.05s ease both;}
 .hero-brand{animation:fadeUp 0.5s 0.1s ease both;}
 .hero-tagline{animation:fadeUp 0.5s 0.15s ease both;}
-.hero-hook{animation:fadeUp 0.5s 0.2s ease both;}
-.beta-badge{animation:fadeUp 0.5s 0.25s ease both;}
-.hero-form-wrap{animation:fadeUp 0.5s 0.3s ease both;}
-.hero-form-note{animation:fadeUp 0.5s 0.35s ease both;}
-.hero-right{animation:fadeUp 0.6s 0.15s ease both;}
+.hero-headline{animation:fadeUp 0.5s 0.2s ease both;}
+.hero-subline{animation:fadeUp 0.5s 0.25s ease both;}
+.beta-badge{animation:fadeUp 0.5s 0.3s ease both;}
+.hero-form{animation:fadeUp 0.5s 0.35s ease both;}
+.form-note{animation:fadeUp 0.5s 0.4s ease both;}
+.hero-right{animation:fadeUp 0.65s 0.15s ease both;}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1000px){
@@ -395,19 +369,22 @@ footer{
   .nav-cta{display:none;}
   .hero{grid-template-columns:1fr;padding:110px 28px 70px;gap:48px;min-height:auto;}
   .hero-right{order:-1;}
-  .phone-hero{width:200px;transform:none;}
-  .hero::before{display:none;}
-  .hero-brand{font-size:clamp(52px,12vw,80px);}
-  .hero-hook{font-size:clamp(17px,4vw,22px);}
+  .phone-hero{width:200px;transform:none;margin:0 auto;display:block;}
+  .hero::before,.hero::after{display:none;}
+  .story{padding:70px 28px;}
+  .story-inner{grid-template-columns:1fr;gap:40px;}
   .what{padding:70px 28px;}
   .what-grid{grid-template-columns:1fr;gap:36px;}
-  .screens{padding:70px 28px;}
-  .phones-row,.phones-row-2{
-    grid-template-columns:1fr;gap:40px;
+  .screens{padding:70px 0 80px;}
+  .screens-kicker,.screens-h,.screens-sub{padding:0 28px;}
+  .phones-row{
+    display:flex;overflow-x:auto;gap:24px;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    padding:0 28px 32px;
   }
-  .phone-col:nth-child(2),.phone-col-2:nth-child(2){margin-top:0;}
+  .phone-col{min-width:75vw;scroll-snap-align:start;flex-shrink:0;}
+  .phone-col:nth-child(2){margin-top:0;}
   .cta{padding:80px 28px;}
-  .cta-q{font-size:clamp(30px,8vw,48px);}
   footer{flex-direction:column;gap:10px;padding:28px 24px;text-align:center;}
 }
 </style>
@@ -416,41 +393,34 @@ footer{
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">get active<span>.</span></div>
+  <a class="nav-logo" href="#">get active<span>.</span></a>
   <div class="nav-right">
     <a class="nav-contact" href="mailto:nea.builds@gmail.com">nea.builds@gmail.com</a>
     <a class="nav-cta" href="#cta">Request access</a>
   </div>
 </nav>
 
-<!-- ══ SECTION 1: DARK HERO ══ -->
+<!-- ══ HERO ══ -->
 <section class="hero">
   <div class="hero-left">
     <div class="hero-overline">Personal activity tracker</div>
     <h1 class="hero-brand">get<br>active<span>.</span></h1>
     <div class="hero-tagline">Built By Days.</div>
-    <p class="hero-hook">
-      Doesn't matter if you rode your bike with your toddler or ran an ultramarathon. It just wants to know: <em>were you active today?</em>
-    </p>
+    <h2 class="hero-headline">Activity isn't something you do.<br>It's who you become.</h2>
+    <p class="hero-subline">The app that turns showing up into a way of life.</p>
     <div class="beta-badge"><span class="beta-dot"></span>Private beta — invite only</div>
-    <div class="hero-form-wrap">
-      <form class="hero-form" id="hero-form" action="https://formspree.io/f/xykvpvbr" method="POST">
-        <input type="email" name="email" placeholder="your@email.com" required>
-        <button type="submit">Request access →</button>
-      </form>
-    </div>
-    <p class="hero-form-note">We'll set up your account and send login details personally. <em>Usually within a day or two.</em></p>
-    <div class="hero-success" id="hero-success">You're on the list.<br>We'll be in touch with your login details soon.</div>
+    <form class="hero-form" id="hero-form" action="https://formspree.io/f/xykvpvbr" method="POST">
+      <input type="email" name="email" placeholder="your@email.com" required>
+      <button type="submit">Request access →</button>
+    </form>
+    <p class="form-note">We'll set up your account personally. <em>Usually within a day or two.</em></p>
+    <div class="hero-success" id="hero-success">You're on the list.<br>We'll send your login details within a day or two.</div>
   </div>
-
   <div class="hero-right">
     <div class="phone-hero">
       <div class="ph-notch"><div class="ph-pill"></div></div>
       <div class="pl-sc">
-        <div class="u-hdr">
-          <div><div class="u-ey">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div>
-          <div class="u-date">24 May 2026<br>Sunday</div>
-        </div>
+        <div class="u-hdr"><div><div class="u-ey">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">30 May 2026<br>Saturday</div></div>
         <div class="u-nav"><span>Log</span><span class="u-a">Stats</span><span>Graphs</span><span>History</span></div>
         <div class="u-sl">Year to date</div>
         <div class="u-hc" style="background:#3D5470;">
@@ -464,11 +434,8 @@ footer{
           <div class="u-pi">6M</div><div class="u-pi u-pi-on">Year</div>
         </div>
         <div class="u-bar" style="background:linear-gradient(to right,#3D5470 20%,#8AAAC8 20%,#8AAAC8 29%,rgba(255,255,255,0.07) 29%)"></div>
-        <div class="u-barleg">
-          <span><span class="u-sw" style="background:#3D5470;"></span>active days</span>
-          <span><span class="u-sw" style="background:#8AAAC8;"></span>on-pace target</span>
-        </div>
-        <div style="font-size:5.5px;letter-spacing:.08em;text-transform:uppercase;color:#9C9890;text-align:center;margin-bottom:4px;">Body metrics · 7-day avg</div>
+        <div class="u-barleg"><span><span class="u-sw" style="background:#3D5470;"></span>active days</span><span><span class="u-sw" style="background:#8AAAC8;"></span>on-pace target</span></div>
+        <div style="font-size:5px;letter-spacing:.08em;text-transform:uppercase;color:#9C9890;text-align:center;margin-bottom:4px;">Body metrics · 7-day avg</div>
         <div class="u-mg">
           <div class="u-mc"><div class="u-mcl">7D Avg Weight</div><div class="u-mcv" style="color:#5DBA7D;">80.7</div><div class="u-mcu">kg</div><div class="u-mct" style="color:#5DBA7D;">↓ decreasing</div></div>
           <div class="u-mc"><div class="u-mcl">7D Avg Fat</div><div class="u-mcv" style="color:#E05050;">20.3</div><div class="u-mcu">kg</div><div class="u-mct" style="color:#9C9890;">→ stable</div></div>
@@ -480,44 +447,63 @@ footer{
   </div>
 </section>
 
-<!-- ══ SECTION 2: CREAM — WHAT IS IT ══ -->
-<section class="what">
-  <div class="what-kicker">What is get active.</div>
-  <h2 class="what-headline">A simple daily log that shows you<br><span>exactly where you stand.</span></h2>
-  <div class="what-grid">
-    <div class="what-item">
-      <div class="what-num">01</div>
-      <div class="what-h">Thirty seconds. Then you're done.</div>
-      <div class="what-b">Open the app. Pick your activity — a walk, a gym session, a backyard cricket game, anything. Save. That's it. No lengthy check-ins. No complicated flows. The app gets out of your way so you can get on with your day.</div>
+<!-- ══ STORY ══ -->
+<section class="story">
+  <div class="story-inner">
+    <div class="story-left">
+      <div class="story-kicker">Why I built this</div>
+      <h2 class="story-headline">An honest record of reality.</h2>
+      <div class="story-body">
+        <p>For two years, I tracked my activity in a spreadsheet. Not because anyone told me to — because I wanted to understand myself. How active was I, really? How did that connect to how my body felt?</p>
+        <p>I tried fitness apps along the way. Most made me feel worse. Too much logging. Too much guilt. Too many notifications telling me I'd broken a streak.</p>
+        <p>So I built something simpler. Open the app. Pick what you did. Save. Under 30 seconds.</p>
+        <p>I'm still a work in progress. I haven't become the person I want to be yet.</p>
+        <p>But for the first time, I can see it happening.</p>
+        <p>90 days of logging. Not every day was active. But every day was honest. And that record — that simple, unfiltered record — is slowly building the identity I want.</p>
+      </div>
     </div>
-    <div class="what-item">
-      <div class="what-num">02</div>
-      <div class="what-h">Your honest number. Always.</div>
-      <div class="what-b">No inflated streaks. No confetti for average days. Just your active days this year, your pace, and where you need to be. One bad week doesn't reset anything. Rest days are logged too — Sick, Holiday, Rest all have a colour.</div>
-    </div>
-    <div class="what-item">
-      <div class="what-num">03</div>
-      <div class="what-h">Built around a year, not a day.</div>
-      <div class="what-b">Set your goal — 75% of days active, 60%, whatever fits your life. The app tracks it across the full year. Logging every day builds something. Not just fitness. An identity. The kind of person who shows up.</div>
+    <div class="story-right">
+      <div class="story-pull">Not to tell you who you are.<br><br>To show you who you're becoming.</div>
     </div>
   </div>
 </section>
 
-<!-- ══ SECTION 3: CREAM — THE SCREENS ══ -->
+<!-- ══ WHAT IS IT ══ -->
+<section class="what">
+  <div class="what-kicker">What is get active.</div>
+  <h2 class="what-headline">A simple daily log that shows you<br>exactly where you stand.</h2>
+  <div class="what-grid">
+    <div>
+      <div class="what-num">01</div>
+      <div class="what-h">Thirty seconds. Then you're done.</div>
+      <div class="what-b">Open the app. Pick your activity — a walk, a gym session, a backyard cricket game, throwing a ball around with your toddler, anything. Save. The app gets out of your way so you can get on with your day.</div>
+    </div>
+    <div>
+      <div class="what-num">02</div>
+      <div class="what-h">Your honest number. Always.</div>
+      <div class="what-b">No inflated streaks. No confetti for average days. Just your active days this year, your pace, and where you need to be. Rest days are logged here too — Sick, Holiday, Rest all have a colour. Nothing is hidden.</div>
+    </div>
+    <div>
+      <div class="what-num">03</div>
+      <div class="what-h">Built around a year. Not a day.</div>
+      <div class="what-b">Set your goal — 75% of days active, 60%, whatever fits your life. The app tracks it across the full year. One bad week doesn't define you. The identity is built day by day, across 365 of them.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SCREENS ══ -->
 <section class="screens">
   <div class="screens-kicker">The app</div>
-  <h2 class="screens-headline">Four screens.<br>Everything you need.</h2>
+  <h2 class="screens-h">Four screens.<br>Everything you need.</h2>
   <p class="screens-sub">Nothing you don't.</p>
 
   <!-- Row 1: Log + Stats -->
   <div class="phones-row">
-
-    <!-- LOG -->
     <div class="phone-col">
       <div class="phone-large">
         <div class="pl-notch"><div class="pl-pill"></div></div>
         <div class="pl-sc">
-          <div class="u-hdr"><div><div class="u-ey">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">24 May<br>Sunday</div></div>
+          <div class="u-hdr"><div><div class="u-ey">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">30 May<br>Saturday</div></div>
           <div class="u-nav"><span class="u-a">Log</span><span>Stats</span><span>Graphs</span><span>History</span></div>
           <div class="u-today">Today</div>
           <div class="u-streak">90 day streak 🔥</div>
@@ -528,31 +514,26 @@ footer{
             <div class="u-chip">Zwift</div><div class="u-chip">Other</div>
             <div class="u-chip u-chip-full u-chip-sel">No Activity</div>
           </div>
-          <div class="u-subchips">
-            <div class="u-sc-s">Sick</div><div class="u-sc-h">Holiday</div><div class="u-sc-r">Rest</div>
-          </div>
+          <div class="u-subchips"><div class="u-sc-s">Sick</div><div class="u-sc-h">Holiday</div><div class="u-sc-r">Rest</div></div>
           <div class="u-bmlabel">Body metrics (kg)</div>
           <div class="u-bmrow"><div class="u-bmi">—</div><div class="u-bmi">—</div><div class="u-bmi">—</div></div>
-          <div style="font-size:5.5px;color:#9C9890;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;">Diet quality</div>
           <div class="u-dietrow"><div class="u-db">1</div><div class="u-db">2</div><div class="u-db">3</div><div class="u-db">4</div><div class="u-db">5</div></div>
           <div class="u-save">Save entry →</div>
         </div>
       </div>
       <div class="phone-label">Log</div>
-      <div class="phone-desc">Pick your activity. Anything counts — a vortex throw to a marathon. Save. Done in 30 seconds.</div>
+      <div class="phone-desc">Pick what you did. Anything counts — a vortex throw to a marathon. Save in 30 seconds.</div>
       <ul class="ann-list">
         <li><strong>90 day streak 🔥</strong> — the habit building in real time</li>
-        <li><strong>No Activity</strong> — rest days live here. Sick, Holiday, Rest all logged with a colour</li>
+        <li><strong>No Activity</strong> — rest days live here too. Sick, Holiday and Rest all logged with a colour</li>
         <li><strong>Body metrics + diet</strong> — optional, but powerful over time</li>
       </ul>
     </div>
-
-    <!-- STATS -->
     <div class="phone-col">
       <div class="phone-large">
         <div class="pl-notch"><div class="pl-pill"></div></div>
         <div class="pl-sc">
-          <div class="u-hdr"><div><div class="u-ey">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">24 May<br>Sunday</div></div>
+          <div class="u-hdr"><div><div class="u-ey">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">30 May<br>Saturday</div></div>
           <div class="u-nav"><span>Log</span><span class="u-a">Stats</span><span>Graphs</span><span>History</span></div>
           <div class="u-sl">Year to date</div>
           <div class="u-hc" style="background:#3D5470;">
@@ -561,13 +542,10 @@ footer{
             <div class="u-hcpace">50.7% pace</div>
             <div class="u-hcsub">35 days behind goal</div>
           </div>
-          <div class="u-pills">
-            <div class="u-pi" style="opacity:.3;">1M</div><div class="u-pi" style="opacity:.3;">3M</div>
-            <div class="u-pi">6M</div><div class="u-pi u-pi-on">Year</div>
-          </div>
+          <div class="u-pills"><div class="u-pi" style="opacity:.3;">1M</div><div class="u-pi" style="opacity:.3;">3M</div><div class="u-pi">6M</div><div class="u-pi u-pi-on">Year</div></div>
           <div class="u-bar" style="background:linear-gradient(to right,#3D5470 20%,#8AAAC8 20%,#8AAAC8 29%,rgba(255,255,255,0.07) 29%)"></div>
           <div class="u-barleg"><span><span class="u-sw" style="background:#3D5470;"></span>active days</span><span><span class="u-sw" style="background:#8AAAC8;"></span>on-pace target</span></div>
-          <div style="font-size:5.5px;letter-spacing:.08em;text-transform:uppercase;color:#9C9890;text-align:center;margin-bottom:4px;">Body metrics · 7-day avg</div>
+          <div style="font-size:5px;letter-spacing:.08em;text-transform:uppercase;color:#9C9890;text-align:center;margin-bottom:4px;">Body metrics · 7-day avg</div>
           <div class="u-mg">
             <div class="u-mc"><div class="u-mcl">7D Avg Weight</div><div class="u-mcv" style="color:#5DBA7D;">80.7</div><div class="u-mcu">kg</div><div class="u-mct" style="color:#5DBA7D;">↓ decreasing</div></div>
             <div class="u-mc"><div class="u-mcl">7D Avg Fat</div><div class="u-mcv" style="color:#E05050;">20.3</div><div class="u-mcu">kg</div><div class="u-mct" style="color:#9C9890;">→ stable</div></div>
@@ -577,57 +555,54 @@ footer{
         </div>
       </div>
       <div class="phone-label">Stats</div>
-      <div class="phone-desc">Your honest number. Where you are vs where you want to be. Body trends colour-coded.</div>
+      <div class="phone-desc">Your honest number. Where you are vs where you want to be.</div>
       <ul class="ann-list">
-        <li><strong>73 active days</strong> — your real number, never inflated or rounded up</li>
-        <li><strong>The bar</strong> — shows exactly how far you are from your on-pace target</li>
+        <li><strong>73 active days</strong> — your real number, never inflated</li>
+        <li><strong>The bar</strong> — exactly where you are vs your on-pace target</li>
         <li><strong>Period toggle</strong> — zoom to 1M, 3M, 6M or the full year</li>
       </ul>
     </div>
-
   </div>
 
   <!-- Row 2: Graphs + History -->
-  <div class="phones-row-2">
-
-    <!-- GRAPHS -->
-    <div class="phone-col-2">
+  <div class="phones-row">
+    <div class="phone-col">
       <div class="phone-large">
         <div class="pl-notch"><div class="pl-pill"></div></div>
         <div class="pl-sc">
-          <div class="u-hdr"><div><div class="u-ey">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">24 May<br>Sunday</div></div>
+          <div class="u-hdr"><div><div class="u-ey">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">30 May<br>Saturday</div></div>
           <div class="u-nav"><span>Log</span><span>Stats</span><span class="u-a">Graphs</span><span>History</span></div>
           <div class="u-pills" style="margin-bottom:5px;"><div class="u-pi" style="opacity:.3;">1M</div><div class="u-pi" style="opacity:.3;">3M</div><div class="u-pi">6M</div><div class="u-pi u-pi-on">Year</div></div>
           <div class="u-sl">Active days · swipe for monthly view</div>
           <div class="u-ga">
             <div style="font-size:5px;color:#9C9890;margin-bottom:3px;display:flex;justify-content:space-between;"><span>Cumulative vs pace</span><span style="color:#F5F2EC;">— your days ·· on-pace</span></div>
-            <svg width="100%" height="64" viewBox="0 0 130 64">
-              <line x1="0" y1="50" x2="130" y2="50" stroke="rgba(245,242,236,0.06)" stroke-width="0.5"/>
-              <line x1="0" y1="34" x2="130" y2="34" stroke="rgba(245,242,236,0.06)" stroke-width="0.5"/>
-              <line x1="0" y1="18" x2="130" y2="18" stroke="rgba(245,242,236,0.06)" stroke-width="0.5"/>
-              <line x1="0" y1="58" x2="130" y2="6" stroke="#8AAAC8" stroke-width="1" stroke-dasharray="3,2"/>
-              <polyline points="0,58 18,53 36,48 54,43 72,38 90,33 108,29 130,25" fill="none" stroke="#3D5470" stroke-width="2" stroke-linecap="round"/>
-              <polygon points="0,58 18,53 36,48 54,43 72,38 90,33 108,29 130,25 130,58" fill="rgba(61,84,112,0.18)"/>
-              <text x="1" y="62" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Jan 26</text>
-              <text x="50" y="62" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Apr 26</text>
-              <text x="105" y="62" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Today</text>
+            <svg width="100%" height="62" viewBox="0 0 130 62">
+              <line x1="0" y1="48" x2="130" y2="48" stroke="rgba(245,242,236,0.06)" stroke-width="0.5"/>
+              <line x1="0" y1="32" x2="130" y2="32" stroke="rgba(245,242,236,0.06)" stroke-width="0.5"/>
+              <line x1="0" y1="16" x2="130" y2="16" stroke="rgba(245,242,236,0.06)" stroke-width="0.5"/>
+              <line x1="0" y1="56" x2="130" y2="4" stroke="#8AAAC8" stroke-width="1" stroke-dasharray="3,2"/>
+              <polyline points="0,56 18,51 36,46 54,41 72,36 90,31 108,27 130,23" fill="none" stroke="#3D5470" stroke-width="2.5" stroke-linecap="round"/>
+              <polygon points="0,56 18,51 36,46 54,41 72,36 90,31 108,27 130,23 130,56" fill="rgba(61,84,112,0.18)"/>
+              <text x="1" y="60" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Jan 26</text>
+              <text x="50" y="60" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Apr 26</text>
+              <text x="105" y="60" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Today</text>
             </svg>
           </div>
           <div style="display:flex;justify-content:center;gap:4px;margin-bottom:5px;"><div style="width:5px;height:5px;border-radius:50%;background:#3D5470;"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(245,242,236,0.2);"></div></div>
           <div class="u-sl">Body composition</div>
-          <div style="display:flex;gap:3px;margin-bottom:5px;">
+          <div style="display:flex;gap:3px;margin-bottom:4px;">
             <div style="flex:1;background:#3D5470;border-radius:2px;padding:3px;font-size:6px;text-align:center;color:#fff;font-family:'Courier Prime',monospace;">Weight</div>
             <div style="flex:1;background:rgba(245,242,236,0.06);border-radius:2px;padding:3px;font-size:6px;text-align:center;color:#9C9890;font-family:'Courier Prime',monospace;">Fat</div>
             <div style="flex:1;background:rgba(245,242,236,0.06);border-radius:2px;padding:3px;font-size:6px;text-align:center;color:#9C9890;font-family:'Courier Prime',monospace;">Lean</div>
           </div>
           <div class="u-ga">
-            <svg width="100%" height="52" viewBox="0 0 130 52">
-              <line x1="0" y1="38" x2="130" y2="38" stroke="rgba(245,242,236,0.05)" stroke-width="0.5"/>
+            <svg width="100%" height="50" viewBox="0 0 130 50">
+              <line x1="0" y1="36" x2="130" y2="36" stroke="rgba(245,242,236,0.05)" stroke-width="0.5"/>
               <line x1="0" y1="20" x2="130" y2="20" stroke="rgba(245,242,236,0.05)" stroke-width="0.5"/>
               <polyline points="0,30 18,32 36,26 54,23 72,19 90,22 108,18 130,22" fill="none" stroke="#4AAA6A" stroke-width="2" stroke-linecap="round"/>
               <polyline points="0,30 8,34 16,24 24,30 32,26 40,28 48,21 56,25 64,23 72,19 80,24 88,20 96,22 104,18 112,22 120,20 130,24" fill="none" stroke="rgba(74,170,106,0.3)" stroke-width="0.8" stroke-dasharray="2,1"/>
-              <text x="1" y="51" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Jan 26</text>
-              <text x="96" y="51" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">May 26</text>
+              <text x="1" y="49" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">Jan 26</text>
+              <text x="96" y="49" font-family="'Courier New',monospace" font-size="4.5" fill="#9C9890">May 26</text>
             </svg>
           </div>
         </div>
@@ -635,48 +610,43 @@ footer{
       <div class="phone-label">Graphs</div>
       <div class="phone-desc">Your year, building. The gap between your line and the pace line is what you're closing.</div>
       <ul class="ann-list">
-        <li><strong>Cumulative line</strong> — your active days stacking up day by day</li>
-        <li><strong>On-pace line</strong> — the dashed line is where you need to be</li>
+        <li><strong>Your line</strong> — cumulative active days climbing over the year</li>
+        <li><strong>On-pace line</strong> — the dashed line shows where you need to be</li>
         <li><strong>Body comp</strong> — weight, fat, lean always colour-coded</li>
       </ul>
     </div>
-
-    <!-- HISTORY -->
-    <div class="phone-col-2">
+    <div class="phone-col" style="margin-top:56px;">
       <div class="phone-large">
         <div class="pl-notch"><div class="pl-pill"></div></div>
         <div class="pl-sc">
-          <div class="u-hdr"><div><div class="u-ey">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">24 May<br>Sunday</div></div>
+          <div class="u-hdr"><div><div class="u-ey">Personal Tracker</div><div class="u-logo">get active<span class="u-logo-dot">.</span></div></div><div class="u-date">30 May<br>Saturday</div></div>
           <div class="u-nav"><span>Log</span><span>Stats</span><span>Graphs</span><span class="u-a">History</span></div>
           <div class="u-sl" style="margin-bottom:5px;">Recent entries</div>
-          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">24 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Pickleball</div></div></div></div><div class="u-hmet">80.7kg<br>f 20.3 l 57.3</div></div>
-          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">23 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#C07030;"></div><div class="u-hact">No Activity</div></div><div class="u-hbadge" style="background:rgba(192,112,48,0.12);color:#C07030;">Sick</div></div></div><div class="u-hmet">80.5kg</div></div>
-          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">22 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Gym</div></div></div></div><div class="u-hmet">80.3kg<br>f 20.1 l 57.1</div></div>
-          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">21 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#2A5AA0;"></div><div class="u-hact">No Activity</div></div><div class="u-hbadge" style="background:rgba(42,90,160,0.12);color:#6A8AC8;">Holiday</div></div></div><div class="u-hmet">—</div></div>
-          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">20 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Backyard Cricket</div></div></div></div><div class="u-hmet">80.6kg</div></div>
-          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">19 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#9C9890;"></div><div class="u-hact">No Activity</div></div><div class="u-hbadge" style="background:rgba(156,152,144,0.12);color:#9C9890;">Rest</div></div></div><div class="u-hmet">80.4kg</div></div>
-          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">18 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Walk</div></div></div></div><div class="u-hmet">80.8kg</div></div>
-          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">17 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Indoor Cricket</div></div></div></div><div class="u-hmet">80.5kg</div></div>
-          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">16 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#C0392B;"></div><div class="u-hact">No Activity</div></div></div></div><div class="u-hmet">80.9kg</div></div>
-          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">15 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Gym</div></div></div></div><div class="u-hmet">80.7kg<br>f 20.0 l 57.5</div></div>
+          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">30 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Pickleball</div></div></div></div><div class="u-hmet">80.7kg<br>f 20.3 l 57.3</div></div>
+          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">29 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#C07030;"></div><div class="u-hact">No Activity</div></div><div class="u-hbadge" style="background:rgba(192,112,48,0.12);color:#C07030;">Sick</div></div></div><div class="u-hmet">80.5kg</div></div>
+          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">28 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Gym</div></div></div></div><div class="u-hmet">80.3kg</div></div>
+          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">27 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#2A5AA0;"></div><div class="u-hact">No Activity</div></div><div class="u-hbadge" style="background:rgba(42,90,160,0.12);color:#6A8AC8;">Holiday</div></div></div><div class="u-hmet">—</div></div>
+          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">26 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Backyard Cricket</div></div></div></div><div class="u-hmet">80.6kg</div></div>
+          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">25 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#9C9890;"></div><div class="u-hact">No Activity</div></div><div class="u-hbadge" style="background:rgba(156,152,144,0.12);color:#9C9890;">Rest</div></div></div><div class="u-hmet">80.4kg</div></div>
+          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">24 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Walk</div></div></div></div><div class="u-hmet">80.8kg</div></div>
+          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">23 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#3D5470;"></div><div class="u-hact">Indoor Cricket</div></div></div></div><div class="u-hmet">80.5kg</div></div>
+          <div class="u-hrow"><div style="display:flex;gap:4px;align-items:flex-start;"><div class="u-hdate">22 May</div><div><div style="display:flex;align-items:center;gap:3px;"><div class="u-hdot" style="background:#C0392B;"></div><div class="u-hact">No Activity</div></div></div></div><div class="u-hmet">80.9kg</div></div>
         </div>
       </div>
       <div class="phone-label">History</div>
-      <div class="phone-desc">Every day has a colour. Your year, honestly recorded. Nothing hidden.</div>
+      <div class="phone-desc">Every day has a colour. Your year, honestly recorded.</div>
       <ul class="ann-list">
         <li><strong>Blue dot</strong> — active day. Every activity counts equally</li>
-        <li><strong>Orange dot</strong> — sick day logged. Colour tells the story</li>
-        <li><strong>Holiday in blue</strong> — doesn't break the habit. Just a different colour</li>
-        <li><strong>No blank days</strong> — even rest is part of the record</li>
+        <li><strong>Sick, holiday, rest</strong> — all logged, all visible, no guilt</li>
+        <li><strong>No blank days</strong> — even rest is part of the honest record</li>
       </ul>
     </div>
-
   </div>
 </section>
 
-<!-- ══ SECTION 4: DARK CTA ══ -->
+<!-- ══ CTA ══ -->
 <section class="cta" id="cta">
-  <h2 class="cta-q">Were you<br>active <span>today?</span></h2>
+  <h2 class="cta-q">Were you active<br><span>today?</span></h2>
   <p class="cta-sub">We're building this with a small group of people. Request access and we'll set up your account personally.</p>
   <p class="cta-note">Private beta · we review requests weekly</p>
   <form class="cta-form" id="cta-form" action="https://formspree.io/f/xykvpvbr" method="POST">
@@ -704,23 +674,23 @@ function handleForm(formId, successId) {
     e.preventDefault();
     const btn = form.querySelector('button');
     const orig = btn.textContent;
-    btn.textContent = 'Sending…';btn.disabled = true;
+    btn.textContent = 'Sending…'; btn.disabled = true;
     try {
       const res = await fetch(form.action, {
-        method:'POST', body:new FormData(form),
-        headers:{'Accept':'application/json'}
+        method: 'POST', body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
       });
       if (res.ok) {
         form.style.display = 'none';
         const note = form.nextElementSibling;
-        if (note && (note.classList.contains('hero-form-note') || note.classList.contains('cta-note'))) note.style.display='none';
+        if (note && (note.classList.contains('form-note') || note.classList.contains('cta-note'))) note.style.display = 'none';
         success.style.display = 'block';
-      } else { btn.textContent=orig; btn.disabled=false; }
-    } catch(e){ btn.textContent=orig; btn.disabled=false; }
+      } else { btn.textContent = orig; btn.disabled = false; }
+    } catch(err) { btn.textContent = orig; btn.disabled = false; }
   });
 }
-handleForm('hero-form','hero-success');
-handleForm('cta-form','cta-success');
+handleForm('hero-form', 'hero-success');
+handleForm('cta-form', 'cta-success');
 </script>
 </body>
 </html>
