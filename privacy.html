@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>get active. — Privacy Policy</title>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#1A1814;--ink2:#222018;--cream:#F5F2EC;--cream2:#EDE9E0;
+  --muted:#9C9890;--gold:#C8A96E;
+  --mono:'DM Mono',monospace;--serif:'Courier Prime',monospace;
+}
+body{background:var(--cream);color:var(--ink);font-family:var(--mono);-webkit-font-smoothing:antialiased;}
+nav{
+  background:var(--ink2);padding:20px 48px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid rgba(245,242,236,0.06);
+}
+.nav-logo{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--cream);text-decoration:none;}
+.nav-logo span{color:var(--gold);}
+.nav-back{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:var(--gold);}
+.container{max-width:680px;margin:0 auto;padding:72px 40px 100px;}
+.page-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.page-label::before{content:'';width:20px;height:1px;background:var(--gold);display:block;}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(28px,4vw,42px);color:var(--ink);letter-spacing:-0.02em;line-height:1.1;margin-bottom:10px;}
+.updated{font-size:11px;color:var(--muted);margin-bottom:56px;letter-spacing:0.04em;}
+.intro{font-family:var(--serif);font-size:clamp(16px,1.6vw,19px);color:#3A3630;line-height:1.75;margin-bottom:56px;}
+.section{margin-bottom:48px;}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(18px,2vw,22px);color:var(--ink);margin-bottom:16px;letter-spacing:-0.01em;}
+p{font-size:13.5px;color:#4A4640;line-height:1.85;margin-bottom:14px;}
+p:last-child{margin-bottom:0;}
+ul{list-style:none;padding:0;margin:0 0 14px;}
+ul li{font-size:13.5px;color:#4A4640;line-height:1.85;padding:6px 0 6px 16px;border-left:2px solid var(--gold);margin-bottom:6px;position:relative;}
+ul li::before{content:'';position:absolute;left:-4.5px;top:14px;width:7px;height:7px;border-radius:50%;background:var(--gold);}
+.highlight{background:var(--cream2);border-radius:6px;padding:20px 24px;margin:24px 0;}
+.highlight p{font-size:13px;color:#4A4640;margin-bottom:0;}
+.highlight strong{color:var(--ink);}
+.contact-box{background:var(--ink2);border-radius:8px;padding:28px 32px;margin-top:48px;}
+.contact-box p{color:rgba(245,242,236,0.7);font-size:13px;}
+.contact-box a{color:var(--gold);text-decoration:none;}
+.contact-box h2{color:var(--cream);margin-bottom:12px;}
+footer-priv{display:block;text-align:center;font-size:11px;color:var(--muted);margin-top:48px;letter-spacing:0.04em;}
+@media(max-width:600px){nav{padding:16px 24px;}.container{padding:48px 24px 80px;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">get active<span>.</span></a>
+  <a class="nav-back" href="/">← Back to home</a>
+</nav>
+
+<div class="container">
+  <div class="page-label">Legal</div>
+  <h1>Privacy Policy</h1>
+  <div class="updated">Last updated: May 2026 · Beta version · Australian users</div>
+
+  <p class="intro">get active. is a personal activity tracker built on the idea that honest, simple logging helps you understand yourself. We take the same approach to your data — honest and simple. This policy explains exactly what we collect, where it goes, and what we do with it.</p>
+
+  <div class="section">
+    <h2>Who we are</h2>
+    <p>get active. is operated by Nea Builds, based in Australia. The app is currently in private beta with a small group of invited users. If you have any questions about this policy, email us at <strong>nea.builds@gmail.com</strong> — we will respond personally.</p>
+  </div>
+
+  <div class="section">
+    <h2>What information we collect</h2>
+    <p>We only collect what you give us. Nothing is collected in the background without your knowledge.</p>
+    <ul>
+      <li><strong>Your email address</strong> — used to create your account and communicate with you about the app</li>
+      <li><strong>Activity logs</strong> — the activity type (e.g. Walk, Gym, Pickleball), the date, and any notes you choose to add</li>
+      <li><strong>Body measurements</strong> — weight, fat mass, and lean mass if you choose to log them. These are entered manually by you, or synced from a Withings smart scale if you connect one</li>
+      <li><strong>Diet quality scores</strong> — a simple 1–5 score you log yourself, if you choose to use this feature</li>
+    </ul>
+    <div class="highlight">
+      <p><strong>Health information:</strong> Body weight and composition measurements are considered health information under the Australian Privacy Act 1988. We treat this data with extra care. It is used only to show your own history and trends back to you — nothing else.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Where your data is stored</h2>
+    <p>Your data is stored in Supabase, a secure cloud database service that uses Amazon Web Services (AWS) infrastructure. Supabase is SOC 2 Type II compliant, which means it has been independently audited for security. Your data is currently stored on servers in the United States.</p>
+    <p>Each user's data is protected by Row Level Security — a technical measure that means you can only ever see your own data. Not other users' data. Not the app developer's data. Only yours.</p>
+  </div>
+
+  <div class="section">
+    <h2>What we do with your data</h2>
+    <p>Your data is used for one purpose: to show your own activity history, statistics, and trends back to you inside the app.</p>
+    <p>We do not:</p>
+    <ul>
+      <li>Sell your data to any third party</li>
+      <li>Share your data with advertisers</li>
+      <li>Use your data to build profiles for marketing purposes</li>
+      <li>Use your data for any commercial purpose beyond running the app itself</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>AI-generated summaries</h2>
+    <p>In future, get active. may send you optional weekly summary emails generated with the help of AI. If this feature is introduced, here is how it will work:</p>
+    <ul>
+      <li>A limited summary of your recent activity (e.g. active days last week, weight trend) will be sent to Anthropic's Claude API</li>
+      <li>The AI uses this to generate a short, personalised paragraph about your week</li>
+      <li>This data is processed to generate your summary and is not stored by Anthropic beyond the processing request</li>
+      <li>You will always be clearly told when AI is used to generate content</li>
+      <li>This feature will be opt-in — you will never receive AI-generated content without choosing to</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Withings integration</h2>
+    <p>If you choose to connect a Withings smart scale, we access your body measurement data through the Withings API. This connection uses OAuth — a secure, industry-standard method that does not require you to share your Withings password with us.</p>
+    <p>You can disconnect your Withings account at any time from the Settings section of the app. When disconnected, we stop accessing your Withings data.</p>
+  </div>
+
+  <div class="section">
+    <h2>Third-party services we use</h2>
+    <ul>
+      <li><strong>Supabase</strong> — database and user authentication (supabase.com)</li>
+      <li><strong>Vercel</strong> — app hosting (vercel.com)</li>
+      <li><strong>Withings</strong> — optional body measurement sync, only if you choose to connect (withings.com)</li>
+      <li><strong>Anthropic Claude API</strong> — optional AI-generated summaries, only if this feature is enabled (anthropic.com)</li>
+    </ul>
+    <p>We do not use any advertising networks, social media trackers, or analytics tools that share your data with third parties.</p>
+  </div>
+
+  <div class="section">
+    <h2>Your rights under Australian privacy law</h2>
+    <p>Under the Australian Privacy Act 1988 and the Australian Privacy Principles, you have the right to:</p>
+    <ul>
+      <li><strong>Access your data</strong> — request a copy of all personal information we hold about you</li>
+      <li><strong>Correct your data</strong> — request corrections to any inaccurate information</li>
+      <li><strong>Delete your data</strong> — request that your account and all associated data be permanently deleted</li>
+    </ul>
+    <p>To exercise any of these rights, email <strong>nea.builds@gmail.com</strong>. We will respond within 30 days.</p>
+  </div>
+
+  <div class="section">
+    <h2>Account and data deletion</h2>
+    <p>You can request full deletion of your account and all associated data at any time by emailing <strong>nea.builds@gmail.com</strong> with the subject line "Delete my account." We will permanently delete all your data within 7 days and confirm when it is done.</p>
+  </div>
+
+  <div class="section">
+    <h2>Changes to this policy</h2>
+    <p>As get active. grows from a private beta into a public product, this policy will be updated to reflect new features and legal requirements. We will notify all users by email before any significant changes take effect. The date at the top of this page always shows when it was last updated.</p>
+  </div>
+
+  <div class="contact-box">
+    <h2>Questions?</h2>
+    <p>This policy is written to be understood, not just filed away. If anything here is unclear, or if you have any concern about your data, please reach out. We will always respond personally.</p>
+    <p style="margin-top:12px;"><a href="mailto:nea.builds@gmail.com">nea.builds@gmail.com</a></p>
+  </div>
+
+  <footer-priv>get active. · Private beta · 2026 · Australia</footer-priv>
+</div>
+
+</body>
+</html>
