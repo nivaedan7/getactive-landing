@@ -197,7 +197,7 @@ nav{
 .what-b{font-family:var(--mono);font-size:13px;color:#5C5850;line-height:1.85;}
 
 /* ══ SECTION 4 — CREAM SCREENS ══ */
-.screens{background:var(--cream3);padding:100px 80px;border-top:1px solid rgba(26,24,20,0.08);}
+.screens{background:var(--cream3);padding:100px 80px;border-top:1px solid rgba(26,24,20,0.08);overflow:hidden;}
 .screens-kicker{
   font-family:var(--mono);font-size:10px;letter-spacing:0.2em;
   text-transform:uppercase;color:var(--gold);
@@ -216,7 +216,7 @@ nav{
 .phones-row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-bottom:60px;}
 .phone-col:nth-child(2){margin-top:56px;}
 .phone-large{
-  width:100%;background:#1A1814;
+  width:100%;max-width:100%;background:#1A1814;
   border-radius:26px;border:1.5px solid rgba(26,24,20,0.15);
   overflow:hidden;
   box-shadow:0 28px 56px rgba(26,24,20,0.2);
@@ -375,15 +375,26 @@ footer{
   .story-inner{grid-template-columns:1fr;gap:40px;}
   .what{padding:70px 28px;}
   .what-grid{grid-template-columns:1fr;gap:36px;}
-  .screens{padding:70px 0 80px;}
+  .screens{padding:70px 0 80px;overflow:visible;}
   .screens-kicker,.screens-h,.screens-sub{padding:0 28px;}
-  .phones-row{
-    display:flex;overflow-x:auto;gap:24px;
+  .phones-row,.phones-row-2{
+    display:flex;overflow-x:auto;gap:20px;
     scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-    padding:0 28px 32px;
+    padding:0 24px 32px;
+    -ms-overflow-style:none;scrollbar-width:none;
   }
-  .phone-col{min-width:75vw;scroll-snap-align:start;flex-shrink:0;}
+  .phones-row::-webkit-scrollbar,.phones-row-2::-webkit-scrollbar{display:none;}
+  .phone-col{
+    min-width:calc(100vw - 72px);
+    max-width:calc(100vw - 72px);
+    scroll-snap-align:start;flex-shrink:0;
+  }
   .phone-col:nth-child(2){margin-top:0;}
+  .phones-row-2 .phone-col{
+    min-width:calc(100vw - 72px);
+    max-width:calc(100vw - 72px);
+    margin-top:0 !important;
+  }
   .cta{padding:80px 28px;}
   footer{flex-direction:column;gap:10px;padding:28px 24px;text-align:center;}
 }
@@ -471,17 +482,17 @@ footer{
 <!-- ══ WHAT IS IT ══ -->
 <section class="what">
   <div class="what-kicker">What is get active.</div>
-  <h2 class="what-headline">A simple daily log that shows you<br>exactly where you stand.</h2>
+  <h2 class="what-headline">A simple daily log that shows you exactly where you stand.</h2>
   <div class="what-grid">
     <div>
       <div class="what-num">01</div>
       <div class="what-h">Thirty seconds. Then you're done.</div>
-      <div class="what-b">Open the app. Pick your activity — a walk, a gym session, a backyard cricket game, throwing a ball around with your toddler, anything. Save. The app gets out of your way so you can get on with your day.</div>
+      <div class="what-b">Open the app. Pick your activity — a walk, a gym session, a backyard cricket game, throwing a ball around with your toddler, anything. Log it. Under 30 seconds. The app gets out of your way so you can get on with your day.</div>
     </div>
     <div>
       <div class="what-num">02</div>
       <div class="what-h">Your honest number. Always.</div>
-      <div class="what-b">No inflated streaks. No confetti for average days. Just your active days this year, your pace, and where you need to be. Rest days are logged here too — Sick, Holiday, Rest all have a colour. Nothing is hidden.</div>
+      <div class="what-b">No inflated streaks. No confetti for average days. Just your active days this year, your pace, and where you want to be. Rest days are logged here too — Sick, Holiday, Rest all have a colour. Nothing is hidden.</div>
     </div>
     <div>
       <div class="what-num">03</div>
@@ -662,7 +673,10 @@ footer{
   <div class="foot-logo">get active<span>.</span></div>
   <div class="foot-tag">Built By Days.</div>
   <a class="foot-email" href="mailto:nea.builds@gmail.com">nea.builds@gmail.com</a>
-  <div class="foot-right">Private beta · 2026</div>
+  <div style="display:flex;gap:20px;align-items:center;">
+    <a href="/privacy.html" style="font-family:var(--mono);font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:0.04em;transition:color 0.2s;" onmouseover="this.style.color='#C8A96E'" onmouseout="this.style.color='#9C9890'">Privacy Policy</a>
+    <div class="foot-right">Private beta · 2026</div>
+  </div>
 </footer>
 
 <script>
