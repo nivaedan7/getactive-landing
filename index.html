@@ -375,26 +375,36 @@ footer{
   .story-inner{grid-template-columns:1fr;gap:40px;}
   .what{padding:70px 28px;}
   .what-grid{grid-template-columns:1fr;gap:36px;}
-  .screens{padding:70px 0 80px;overflow:visible;}
-  .screens-kicker,.screens-h,.screens-sub{padding:0 28px;}
+  .screens{padding:60px 0 80px;overflow:hidden;}
+  .screens-kicker,.screens-h,.screens-sub{padding:0 24px;}
+  /* Both rows: full-width horizontal scroll, one card at a time */
   .phones-row,.phones-row-2{
-    display:flex;overflow-x:auto;gap:20px;
-    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-    padding:0 24px 32px;
+    display:flex !important;
+    grid-template-columns:none !important;
+    overflow-x:scroll;
+    gap:16px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding:0 24px 28px;
     -ms-overflow-style:none;scrollbar-width:none;
+    align-items:flex-start;
   }
   .phones-row::-webkit-scrollbar,.phones-row-2::-webkit-scrollbar{display:none;}
-  .phone-col{
-    min-width:calc(100vw - 72px);
-    max-width:calc(100vw - 72px);
-    scroll-snap-align:start;flex-shrink:0;
-  }
-  .phone-col:nth-child(2){margin-top:0;}
-  .phones-row-2 .phone-col{
-    min-width:calc(100vw - 72px);
-    max-width:calc(100vw - 72px);
+  /* Each card: exactly viewport width minus padding, never wider */
+  .phone-col,.phones-row-2 .phone-col{
+    min-width:calc(100vw - 48px) !important;
+    max-width:calc(100vw - 48px) !important;
+    width:calc(100vw - 48px) !important;
+    scroll-snap-align:start;
+    flex-shrink:0;
+    flex-grow:0;
     margin-top:0 !important;
+    box-sizing:border-box;
   }
+  /* Annotations: constrained to card width, text wraps */
+  .ann-list{width:100%;box-sizing:border-box;}
+  .ann-list li{white-space:normal;word-wrap:break-word;font-size:11px;}
+  .phone-desc{white-space:normal;word-wrap:break-word;}
   .cta{padding:80px 28px;}
   footer{flex-direction:column;gap:10px;padding:28px 24px;text-align:center;}
 }
