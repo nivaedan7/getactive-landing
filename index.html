@@ -384,17 +384,18 @@ footer{
     overflow-x:scroll;
     gap:16px;
     scroll-snap-type:x mandatory;
+    scroll-padding-left:20px;
     -webkit-overflow-scrolling:touch;
-    padding:0 24px 28px;
+    padding:0 20px 28px;
     -ms-overflow-style:none;scrollbar-width:none;
     align-items:flex-start;
   }
   .phones-row::-webkit-scrollbar,.phones-row-2::-webkit-scrollbar{display:none;}
   /* Each card: exactly viewport width minus padding, never wider */
   .phone-col,.phones-row-2 .phone-col{
-    min-width:calc(100vw - 48px) !important;
-    max-width:calc(100vw - 48px) !important;
-    width:calc(100vw - 48px) !important;
+    min-width:calc(100vw - 56px) !important;
+    max-width:calc(100vw - 56px) !important;
+    width:calc(100vw - 56px) !important;
     scroll-snap-align:start;
     flex-shrink:0;
     flex-grow:0;
