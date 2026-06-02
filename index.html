@@ -400,11 +400,16 @@ footer{
     flex-grow:0;
     margin-top:0 !important;
     box-sizing:border-box;
+    overflow:hidden;
   }
-  /* Annotations: constrained to card width, text wraps */
-  .ann-list{width:100%;box-sizing:border-box;}
-  .ann-list li{white-space:normal;word-wrap:break-word;font-size:11px;}
-  .phone-desc{white-space:normal;word-wrap:break-word;}
+  /* Annotations: constrained to card width */
+  .ann-list{width:100%;box-sizing:border-box;overflow:hidden;}
+  .ann-list li{
+    white-space:normal;word-wrap:break-word;overflow-wrap:break-word;
+    font-size:11px;max-width:100%;box-sizing:border-box;
+  }
+  .phone-desc{white-space:normal;word-wrap:break-word;max-width:100%;}
+  .phone-label{max-width:100%;}
   .cta{padding:80px 28px;}
   footer{flex-direction:column;gap:10px;padding:28px 24px;text-align:center;}
 }
