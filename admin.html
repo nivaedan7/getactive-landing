@@ -210,7 +210,7 @@ tr:hover td{background:var(--cream2);}
 <script>
 // ── Config ──────────────────────────────────────────
 const SB_URL = 'https://dgtknuvzflvvrxwwdzivz.supabase.co';
-const SB_KEY = 'sb_publishable_pN0oZ9qpVuM-uzIMDd87tQ_BSMFvDQO';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRndGtudXZ6Zmx2dnJ4d2R6aXZ6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NzMzNjIxMCwiZXhwIjoyMDkyOTEyMjEwfQ.bBfoJK8m_08Nm-NXrPk1EyAdStHBbjR_H7Mt3Q5iulw';
 const ADMIN_PW = 'neabuildsgetactive';
 
 // ── Lock / Unlock ────────────────────────────────────
@@ -251,14 +251,14 @@ async function sendInvite() {
   msg.className = 'invite-msg';
   msg.textContent = 'Sending invite…';
   try {
-    const res = await fetch(`${SB_URL}/auth/v1/invite`, {
+    const res = await fetch(`${SB_URL}/auth/v1/admin/users`, {
       method: 'POST',
       headers: {
         'apikey': SB_KEY,
         'Authorization': `Bearer ${SB_KEY}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email })
+      body: JSON.stringify({ email, email_confirm: false })
     });
     if (res.ok) {
       msg.className = 'invite-msg invite-ok';
